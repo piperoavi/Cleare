@@ -137,38 +137,87 @@ $page_title = $selected_product['name'] . " - Clearè";
 <!-- ============================================================
      FOOTER
      ============================================================ -->
+<!-- ============================================================
+     FOOTER — kopjo këtë në index.php, shop.php, product.php
+     (zëvendëso <footer>...</footer> ekzistues)
+     ============================================================ -->
 <footer>
-    <div class="footer-top">
+  <div class="footer-top">
 
-        <div class="footer-brand">
-            <div class="logo">Clear<span>è</span></div>
-            <div class="footer-tagline">Your skin, simplified.</div>
-        </div>
+    <!-- Brendi + Social -->
+    <div class="footer-brand">
+      <div class="logo">Clear<span>è</span></div>
+      <div class="footer-tagline">Your skin, simplified.</div>
 
-        <div class="footer-links">
-            <h4>Shop</h4>
-            <ul>
-                <li><a href="shop.php">Të gjitha</a></li>
-                <li><a href="shop.php?cat=skincare">Skincare</a></li>
-                <li><a href="shop.php?cat=spf">SPF</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-links">
-            <h4>Llogaria</h4>
-            <ul>
-                <li><a href="../pages/login.php">Hyr</a></li>
-                <li><a href="../pages/register.php">Regjistrohu</a></li>
-                <li><a href="../pages/cart.php">Shporta</a></li>
-            </ul>
-        </div>
-
-    </div><!-- .footer-top -->
-
-    <div class="footer-bottom">
-        <span>&copy; <?php echo date('Y'); ?> Clearè · Projekt Akademik PHP</span>
-        <span>Iva Pipero</span>
+      <div class="footer-social">
+        <a href="#" title="Instagram">📷</a>
+        <a href="#" title="TikTok">🎵</a>
+        <a href="#" title="Pinterest">📌</a>
+      </div>
     </div>
+
+    <!-- Shop links -->
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="pages/shop.php">All Products</a></li>
+        <li><a href="pages/shop.php?cat=skincare">Skincare</a></li>
+        <li><a href="pages/shop.php?cat=spf">SPF</a></li>
+      </ul>
+    </div>
+
+    <!-- Account links -->
+    <div class="footer-links">
+      <h4>Account</h4>
+      <ul>
+        <li><a href="pages/login.php">Login</a></li>
+        <li><a href="pages/register.php">Register</a></li>
+        <li><a href="pages/cart.php">Cart</a></li>
+      </ul>
+    </div>
+
+    <!-- Info links -->
+    <div class="footer-links">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+
+  </div><!-- .footer-top -->
+
+  <!-- Trust bar -->
+  <div class="footer-trust">
+    <div class="footer-trust-item">
+      <div class="footer-trust-icon">🚚</div>
+      Free shipping over 3,000 L
+    </div>
+    <div class="footer-trust-item">
+      <div class="footer-trust-icon">✓</div>
+      Dermatologist tested
+    </div>
+    <div class="footer-trust-item">
+      <div class="footer-trust-icon">🌿</div>
+      Clean ingredients
+    </div>
+    <div class="footer-trust-item">
+      <div class="footer-trust-icon">↩</div>
+      Easy returns
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <span>&copy; <?php echo date('Y'); ?> Clearè · Academic PHP Project</span>
+    <div class="footer-bottom-right">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <span>Iva Pipero</span>
+    </div>
+  </div>
+
 </footer>
 
 

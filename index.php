@@ -1,5 +1,5 @@
 <?php
-$page_title = "Clearè — Your skin, simplified.";
+$page_title = "Clearè — The clearest in sight.";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,8 +67,8 @@ $page_title = "Clearè — Your skin, simplified.";
     <div class="hero-eyebrow">Clean Beauty</div>
 
     <h1 class="hero-title">
-      Your skin,<br>
-      <em>simplified.</em>
+      The clearest,<br>
+      <em>in sight.</em>
     </h1>
 
     <p class="hero-desc">
@@ -260,14 +260,26 @@ $page_title = "Clearè — Your skin, simplified.";
 <!-- ============================================================
      FOOTER
      ============================================================ -->
+<!-- ============================================================
+     FOOTER — kopjo këtë në index.php, shop.php, product.php
+     (zëvendëso <footer>...</footer> ekzistues)
+     ============================================================ -->
 <footer>
   <div class="footer-top">
 
+    <!-- Brendi + Social -->
     <div class="footer-brand">
       <div class="logo">Clear<span>è</span></div>
       <div class="footer-tagline">Your skin, simplified.</div>
+
+      <div class="footer-social">
+        <a href="#" title="Instagram">📷</a>
+        <a href="#" title="TikTok">🎵</a>
+        <a href="#" title="Pinterest">📌</a>
+      </div>
     </div>
 
+    <!-- Shop links -->
     <div class="footer-links">
       <h4>Shop</h4>
       <ul>
@@ -277,6 +289,7 @@ $page_title = "Clearè — Your skin, simplified.";
       </ul>
     </div>
 
+    <!-- Account links -->
     <div class="footer-links">
       <h4>Account</h4>
       <ul>
@@ -286,12 +299,48 @@ $page_title = "Clearè — Your skin, simplified.";
       </ul>
     </div>
 
+    <!-- Info links -->
+    <div class="footer-links">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+
+  </div><!-- .footer-top -->
+
+  <!-- Trust bar -->
+  <div class="footer-trust">
+    <div class="footer-trust-item">
+      <div class="footer-trust-icon">🚚</div>
+      Free shipping over 3,000 L
+    </div>
+    <div class="footer-trust-item">
+      <div class="footer-trust-icon">✓</div>
+      Dermatologist tested
+    </div>
+    <div class="footer-trust-item">
+      <div class="footer-trust-icon">🌿</div>
+      Clean ingredients
+    </div>
+    <div class="footer-trust-item">
+      <div class="footer-trust-icon">↩</div>
+      Easy returns
+    </div>
   </div>
 
+  <!-- Bottom bar -->
   <div class="footer-bottom">
     <span>&copy; <?php echo date('Y'); ?> Clearè · Academic PHP Project</span>
-    <span>Iva Pipero</span>
+    <div class="footer-bottom-right">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <span>Iva Pipero</span>
+    </div>
   </div>
+
 </footer>
 
 
