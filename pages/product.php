@@ -56,43 +56,38 @@ $page_title = $selected_product['name'] . " - Clearè";
      NAVIGIMI
      ============================================================ -->
 <nav>
-    <!-- Logo -->
-    <a href="../index.php" class="nav-logo">Clear<span>è</span></a>
+  <a href="../index.php" class="nav-logo">Clear<span>è</span></a>
 
-    <!-- Link-at kryesore -->
-    <ul class="nav-links">
-        <li><a href="shop.php">Shop</a></li>
-        <li><a href="shop.php?cat=skincare">Skincare</a></li>
-        <li><a href="shop.php?cat=spf">SPF</a></li>
-        <li><a href="../pages/login.php">Llogaria</a></li>
-    </ul>
+  <ul class="nav-links">
+    <li><a href="shop.php?cat=skincare">Skincare</a></li>
+    <li><a href="shop.php?cat=makeup">Makeup</a></li>
+    <li><a href="shop.php?cat=hair">Hair</a></li>
+    <li><a href="shop.php?cat=body">Body</a></li>
+  </ul>
 
-    <!-- Ikonat dhe hamburger -->
-    <div class="nav-actions">
-        <a href="../pages/login.php" class="nav-icon" title="Llogaria">👤</a>
-        <a href="../pages/cart.php" class="nav-icon" title="Shporta">
-            🛒
-            <span class="cart-badge">0</span>
-        </a>
-
-        <button class="hamburger" id="hamburgerBtn" aria-label="Hap menunë">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
+  <div class="nav-actions">
+    <a href="login.php" class="nav-icon" title="Account">👤</a>
+    <a href="cart.php" class="nav-icon" title="Cart">
+      🛒
+      <span class="cart-badge">0</span>
+    </a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
 <!-- Menu mobile -->
 <div class="mobile-overlay" id="mobileOverlay"></div>
 <div class="mobile-menu" id="mobileMenu">
-    <ul>
-        <li><a href="shop.php">Shop</a></li>
-        <li><a href="shop.php?cat=skincare">Skincare</a></li>
-        <li><a href="shop.php?cat=spf">SPF</a></li>
-        <li><a href="../pages/login.php">Llogaria</a></li>
-        <li><a href="../pages/cart.php">Shporta</a></li>
-    </ul>
+  <ul>
+    <li><a href="shop.php?cat=skincare">Skincare</a></li>
+    <li><a href="shop.php?cat=makeup">Makeup</a></li>
+    <li><a href="shop.php?cat=hair">Hair</a></li>
+    <li><a href="shop.php?cat=body">Body</a></li>
+    <li><a href="login.php">Account</a></li>
+    <li><a href="cart.php">Cart</a></li>
+  </ul>
 </div>
 
 

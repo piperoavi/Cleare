@@ -20,10 +20,10 @@ $page_title = "Clearè — Your skin, simplified.";
   <a href="index.php" class="nav-logo">Clear<span>è</span></a>
 
   <ul class="nav-links">
-    <li><a href="pages/shop.php">Shop</a></li>
     <li><a href="pages/shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="pages/shop.php?cat=spf">SPF</a></li>
-    <li><a href="pages/login.php">Account</a></li>
+    <li><a href="pages/shop.php?cat=makeup">Makeup</a></li>
+    <li><a href="pages/shop.php?cat=hair">Hair</a></li>
+    <li><a href="pages/shop.php?cat=body">Body</a></li>
   </ul>
 
   <div class="nav-actions">
@@ -33,9 +33,7 @@ $page_title = "Clearè — Your skin, simplified.";
       <span class="cart-badge">0</span>
     </a>
     <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
@@ -44,9 +42,10 @@ $page_title = "Clearè — Your skin, simplified.";
 <div class="mobile-overlay" id="mobileOverlay"></div>
 <div class="mobile-menu" id="mobileMenu">
   <ul>
-    <li><a href="pages/shop.php">Shop</a></li>
     <li><a href="pages/shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="pages/shop.php?cat=spf">SPF</a></li>
+    <li><a href="pages/shop.php?cat=makeup">Makeup</a></li>
+    <li><a href="pages/shop.php?cat=hair">Hair</a></li>
+    <li><a href="pages/shop.php?cat=body">Body</a></li>
     <li><a href="pages/login.php">Account</a></li>
     <li><a href="pages/cart.php">Cart</a></li>
   </ul>
@@ -132,28 +131,35 @@ $page_title = "Clearè — Your skin, simplified.";
 
   <div class="categories-grid">
 
-    <a href="pages/shop.php?cat=skincare" class="cat-card">
-      <span class="cat-icon">💧</span>
-      <div class="cat-name">Skincare</div>
-      <div class="cat-desc">Serums, moisturizers, cleansers and toners for your daily routine.</div>
-      <div class="cat-arrow">Explore →</div>
-    </a>
+  <a href="pages/shop.php?cat=skincare" class="cat-card">
+    <span class="cat-icon">💧</span>
+    <div class="cat-name">Skincare</div>
+    <div class="cat-desc">Serums, moisturizers, cleansers and toners for your daily routine.</div>
+    <div class="cat-arrow">Explore →</div>
+  </a>
 
-    <a href="pages/shop.php?cat=spf" class="cat-card">
-      <span class="cat-icon">☀️</span>
-      <div class="cat-name">SPF</div>
-      <div class="cat-desc">Lightweight daily sun protection for all skin types.</div>
-      <div class="cat-arrow">Explore →</div>
-    </a>
+  <a href="pages/shop.php?cat=makeup" class="cat-card">
+    <span class="cat-icon">✨</span>
+    <div class="cat-name">Makeup</div>
+    <div class="cat-desc">Foundation, lip gloss, eyeshadow and blush for every look.</div>
+    <div class="cat-arrow">Explore →</div>
+  </a>
 
-    <a href="pages/shop.php" class="cat-card">
-      <span class="cat-icon">✨</span>
-      <div class="cat-name">All Products</div>
-      <div class="cat-desc">Browse the full Clearè collection in one place.</div>
-      <div class="cat-arrow">Explore →</div>
-    </a>
+  <a href="pages/shop.php?cat=hair" class="cat-card">
+    <span class="cat-icon">🌿</span>
+    <div class="cat-name">Hair</div>
+    <div class="cat-desc">Treatments, masks, shampoos and serums for healthy hair.</div>
+    <div class="cat-arrow">Explore →</div>
+  </a>
 
-  </div>
+  <a href="pages/shop.php?cat=body" class="cat-card">
+    <span class="cat-icon">🧴</span>
+    <div class="cat-name">Body</div>
+    <div class="cat-desc">Body butters, washes, scrubs and lotions for soft, glowing skin.</div>
+    <div class="cat-arrow">Explore →</div>
+  </a>
+
+</div>
 </div>
 
 
