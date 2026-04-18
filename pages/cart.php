@@ -38,36 +38,8 @@ foreach ($cart_items as $item) {
 </head>
 <body>
 
-<nav>
-  <a href="../index.php" class="nav-logo">Clear<span>è</span></a>
-  <ul class="nav-links">
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-  </ul>
-  <div class="nav-actions">
-    <a href="login.php" class="nav-icon" title="Account">👤</a>
-    <a href="cart.php" class="nav-icon" title="Cart">
-      🛒<span class="cart-badge"><?php echo count($cart_items); ?></span>
-    </a>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+<?php include(__DIR__ . '/../includes/nav.php'); ?>
 
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <ul>
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-    <li><a href="login.php">Account</a></li>
-    <li><a href="cart.php">Cart</a></li>
-  </ul>
-</div>
 
 
 <!-- ============================================================
@@ -176,65 +148,21 @@ foreach ($cart_items as $item) {
 
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="logo">Clear<span>è</span></div>
-      <div class="footer-tagline">The clearest in sight.</div>
-    </div>
-    <div class="footer-links">
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="shop.php">All Products</a></li>
-        <li><a href="shop.php?cat=skincare">Skincare</a></li>
-        <li><a href="shop.php?cat=makeup">Makeup</a></li>
-        <li><a href="shop.php?cat=hair">Hair</a></li>
-        <li><a href="shop.php?cat=body">Body</a></li>
-      </ul>
-    </div>
-    <div class="footer-links">
-      <h4>Account</h4>
-      <ul>
-        <li><a href="login.php">Login</a></li>
-        <li><a href="register.php">Register</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>&copy; <?php echo date('Y'); ?> Clearè · Academic PHP Project</span>
-    <span>Iva Pipero</span>
-  </div>
-</footer>
+<?php include('../includes/footer.php'); ?>
 
 
+<?php include(__DIR__ . '/../includes/nav-js.php'); ?>
 <script>
-  // Mobile menu
-  const hamburger  = document.getElementById('hamburgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const overlay    = document.getElementById('mobileOverlay');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    overlay.classList.toggle('open');
-  });
-  overlay.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-    overlay.classList.remove('open');
-  });
-
-  // Quantity buttons (frontend only — backend do ta ruajë në session)
   function changeQty(btn, delta) {
-    const row    = btn.closest('.cart-qty');
-    const valEl  = row.querySelector('.qty-val');
-    let qty      = parseInt(valEl.textContent) + delta;
+    const row   = btn.closest('.cart-qty');
+    const valEl = row.querySelector('.qty-val');
+    let qty     = parseInt(valEl.textContent) + delta;
     if (qty < 1) qty = 1;
     valEl.textContent = qty;
   }
 
-  // Coupon apply (frontend only)
   document.querySelector('.coupon-apply').addEventListener('click', () => {
-    const code = document.querySelector('.coupon-input').value.trim().toUpperCase();
+    const code  = document.querySelector('.coupon-input').value.trim().toUpperCase();
     const valid = ['CLEARE10', 'NEWUSER', 'SKIN20'];
     if (valid.includes(code)) {
       alert('Coupon ' + code + ' applied! Discount will be calculated at checkout.');

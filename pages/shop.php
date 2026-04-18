@@ -18,16 +18,17 @@ include("../includes/products.php");
 
 // Lexojmë kategorinë nga URL (nëse nuk ka, vlera default është string bosh)
 $selected_category = $_GET['cat'] ?? '';
+$search_query      = trim($_GET['search'] ?? '');
 
-// Filtrojmë produktet sipas kategorisë
-// Nëse nuk ka kategori të zgjedhur, marrim të gjitha
 $filtered_products = [];
 
 foreach ($products as $product) {
-    $no_filter      = $selected_category === '';
-    $matches_filter = $product['category'] === $selected_category;
+    $matches_category = $selected_category === '' || $product['category'] === $selected_category;
+    $matches_search   = $search_query === '' ||
+                        stripos($product['name'], $search_query) !== false ||
+                        stripos($product['description'], $search_query) !== false;
 
-    if ($no_filter || $matches_filter) {
+    if ($matches_category && $matches_search) {
         $filtered_products[] = $product;
     }
 }
@@ -50,40 +51,8 @@ foreach ($products as $product) {
 <!-- ============================================================
      NAVIGIMI
      ============================================================ -->
-<nav>
-  <a href="../index.php" class="nav-logo">Clear<span>è</span></a>
+<?php include(__DIR__ . '/../includes/nav.php'); ?>
 
-  <ul class="nav-links">
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-  </ul>
-
-  <div class="nav-actions">
-    <a href="login.php" class="nav-icon" title="Account">👤</a>
-    <a href="cart.php" class="nav-icon" title="Cart">
-      🛒
-      <span class="cart-badge">0</span>
-    </a>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- Menu mobile (slide-in nga e djathta) -->
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <ul>
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-    <li><a href="login.php">Account</a></li>
-    <li><a href="cart.php">Cart</a></li>
-  </ul>
-</div>
 
 
 <!-- ============================================================
@@ -93,10 +62,23 @@ foreach ($products as $product) {
 
     <!-- Titulli i faqes -->
     <div class="shop-header">
-        <div class="section-eyebrow">Shop</div>
-        <h1 class="section-title">Produktet <em>Clearè</em></h1>
-        <p class="shop-subtitle">Zgjidh produktet e preferuara për kujdesin e lëkurës.</p>
-    </div>
+  <div class="section-eyebrow">Shop</div>
+  <h1 class="section-title">
+    <?php if ($search_query !== ''): ?>
+      Results for <em>"<?php echo htmlspecialchars($search_query); ?>"</em>
+    <?php else: ?>
+      The Clearè <em>Collection</em>
+    <?php endif; ?>
+  </h1>
+  <p class="shop-subtitle">
+    <?php if ($search_query !== ''): ?>
+      <?php echo count($filtered_products); ?> product(s) found
+      — <a href="shop.php" style="color:var(--sky-deep);">Clear search</a>
+    <?php else: ?>
+      Find your perfect skincare and beauty routine.
+    <?php endif; ?>
+  </p>
+</div>
 
     <!-- Filtrat e kategorive -->
     <div class="shop-filters">
@@ -176,129 +158,14 @@ foreach ($products as $product) {
 <!-- ============================================================
      FOOTER
      ============================================================ -->
-<!-- ============================================================
-     FOOTER — kopjo këtë në index.php, shop.php, product.php
-     (zëvendëso <footer>...</footer> ekzistues)
-     ============================================================ -->
-<footer>
-  <div class="footer-top">
+<?php include('../includes/footer.php'); ?>
 
-    <!-- Brendi + Social -->
-    <div class="footer-brand">
-      <div class="logo">Clear<span>è</span></div>
-      <div class="footer-tagline">Your skin, simplified.</div>
-
-      <div class="footer-social">
-        <a href="#" title="Instagram">📷</a>
-        <a href="#" title="TikTok">🎵</a>
-        <a href="#" title="Pinterest">📌</a>
-      </div>
-    </div>
-
-    <!-- Shop links -->
-    <div class="footer-links">
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="pages/shop.php">All Products</a></li>
-        <li><a href="pages/shop.php?cat=skincare">Skincare</a></li>
-        <li><a href="pages/shop.php?cat=spf">SPF</a></li>
-      </ul>
-    </div>
-
-    <!-- Account links -->
-    <div class="footer-links">
-      <h4>Account</h4>
-      <ul>
-        <li><a href="pages/login.php">Login</a></li>
-        <li><a href="pages/register.php">Register</a></li>
-        <li><a href="pages/cart.php">Cart</a></li>
-      </ul>
-    </div>
-
-    <!-- Info links -->
-    <div class="footer-links">
-      <h4>Info</h4>
-      <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-      </ul>
-    </div>
-
-  </div><!-- .footer-top -->
-
-  <!-- Trust bar -->
-  <div class="footer-trust">
-    <div class="footer-trust-item">
-      <div class="footer-trust-icon">🚚</div>
-      Free shipping over 3,000 L
-    </div>
-    <div class="footer-trust-item">
-      <div class="footer-trust-icon">✓</div>
-      Dermatologist tested
-    </div>
-    <div class="footer-trust-item">
-      <div class="footer-trust-icon">🌿</div>
-      Clean ingredients
-    </div>
-    <div class="footer-trust-item">
-      <div class="footer-trust-icon">↩</div>
-      Easy returns
-    </div>
-  </div>
-
-  <!-- Bottom bar -->
-  <div class="footer-bottom">
-    <span>&copy; <?php echo date('Y'); ?> Clearè · Academic PHP Project</span>
-    <div class="footer-bottom-right">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <span>Iva Pipero</span>
-    </div>
-  </div>
-
-</footer>
-        <!-- Linkat e llogarisë -->
-        <div class="footer-links">
-            <h4>Llogaria</h4>
-            <ul>
-                <li><a href="../pages/login.php">Hyr</a></li>
-                <li><a href="../pages/register.php">Regjistrohu</a></li>
-                <li><a href="../pages/cart.php">Shporta</a></li>
-            </ul>
-        </div>
-
-    </div><!-- .footer-top -->
-
-    <div class="footer-bottom">
-        <span>&copy; <?php echo date('Y'); ?> Clearè · Projekt Akademik PHP</span>
-        <span>Iva Pipero</span>
-    </div>
-</footer>
 
 
 <!-- ============================================================
      JAVASCRIPT — Menu mobile
      ============================================================ -->
-<script>
-    const hamburger   = document.getElementById('hamburgerBtn');
-    const mobileMenu  = document.getElementById('mobileMenu');
-    const overlay     = document.getElementById('mobileOverlay');
-
-    // Hap / mbyll menunë kur klikohet hamburger-i
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('open');
-        mobileMenu.classList.toggle('open');
-        overlay.classList.toggle('open');
-    });
-
-    // Mbyll menunë kur klikohet overlay-i i errët
-    overlay.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileMenu.classList.remove('open');
-        overlay.classList.remove('open');
-    });
-</script>
+<?php include(__DIR__ . '/../includes/nav-js.php'); ?>
 
 </body>
 </html>

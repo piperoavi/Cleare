@@ -12,36 +12,8 @@ $page_title = "Login — Clearè";
 </head>
 <body>
 
-<nav>
-  <a href="../index.php" class="nav-logo">Clear<span>è</span></a>
-  <ul class="nav-links">
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-  </ul>
-  <div class="nav-actions">
-    <a href="login.php" class="nav-icon" title="Account">👤</a>
-    <a href="cart.php" class="nav-icon" title="Cart">
-      🛒<span class="cart-badge">0</span>
-    </a>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+<?php include(__DIR__ . '/../includes/nav.php'); ?>
 
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <ul>
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-    <li><a href="login.php">Account</a></li>
-    <li><a href="cart.php">Cart</a></li>
-  </ul>
-</div>
 
 <section class="auth-page">
   <div class="auth-card">
@@ -76,21 +48,7 @@ $page_title = "Login — Clearè";
   </div>
 </section>
 
-<script>
-  const hamburger  = document.getElementById('hamburgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const overlay    = document.getElementById('mobileOverlay');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    overlay.classList.toggle('open');
-  });
-  overlay.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-    overlay.classList.remove('open');
-  });
-</script>
+<?php include(__DIR__ . '/../includes/nav-js.php'); ?>
 
 </body>
 </html>

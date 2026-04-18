@@ -2172,3 +2172,98 @@ footer::after {
 @media (max-width: 640px) {
   .confirm-page { padding: 100px 24px 60px; }
 }
+
+/* ============================================================
+   17. STATIC PAGES (about, contact, terms)
+   ============================================================ */
+.static-page {
+  padding: 140px 72px 80px;
+  min-height: 100vh;
+  background: linear-gradient(145deg, #EAF6FB 0%, #D6EEF5 50%, #F0F7F4 100%);
+  display: flex;
+  justify-content: center;
+}
+
+.static-card {
+  background: white;
+  border-radius: 24px;
+  padding: 56px 64px;
+  max-width: 760px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(30, 42, 46, 0.08);
+  border: 1px solid rgba(91, 175, 201, 0.12);
+  align-self: flex-start;
+}
+
+.static-card p {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 1024px) {
+  .static-page { padding: 120px 40px 60px; }
+  .static-card { padding: 40px 36px; }
+}
+
+@media (max-width: 640px) {
+  .static-page { padding: 100px 24px 60px; }
+  .static-card { padding: 28px 24px; }
+}
+
+/* ============================================================
+   18. NAV SEARCH BAR
+   ============================================================ */
+.nav-search {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  position: relative;
+}
+
+.nav-search-input {
+  border: none;
+  border-bottom: 1px solid rgba(91, 175, 201, 0.35);
+  background: transparent;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  width: 160px;
+  padding: 6px 32px 6px 0;
+  transition: all 0.3s ease;
+}
+
+.nav-search-input::placeholder {
+  color: rgba(74, 96, 112, 0.4);
+  letter-spacing: 0.1em;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.nav-search-input:focus {
+  width: 200px;
+  border-bottom-color: var(--sky-deep);
+}
+
+.nav-search-btn {
+  position: absolute;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: rgba(74, 96, 112, 0.4);
+  font-size: 13px;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.nav-search-btn:hover { color: var(--sky-deep); }
+
+@media (max-width: 640px) {
+  .nav-search { display: none; }
+}

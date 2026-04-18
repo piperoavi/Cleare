@@ -29,36 +29,8 @@ $order = [
 </head>
 <body>
 
-<nav>
-  <a href="../index.php" class="nav-logo">Clear<span>è</span></a>
-  <ul class="nav-links">
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-  </ul>
-  <div class="nav-actions">
-    <a href="login.php" class="nav-icon" title="Account">👤</a>
-    <a href="cart.php" class="nav-icon" title="Cart">
-      🛒<span class="cart-badge">0</span>
-    </a>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+<?php include(__DIR__ . '/../includes/nav.php'); ?>
 
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <ul>
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-    <li><a href="login.php">Account</a></li>
-    <li><a href="cart.php">Cart</a></li>
-  </ul>
-</div>
 
 
 <!-- ============================================================
@@ -170,105 +142,10 @@ $order = [
 
 
 <!-- FOOTER -->
-<!-- ============================================================
-     FOOTER — kopjo këtë në index.php, shop.php, product.php
-     (zëvendëso <footer>...</footer> ekzistues)
-     ============================================================ -->
-<footer>
-  <div class="footer-top">
-
-    <!-- Brendi + Social -->
-    <div class="footer-brand">
-      <div class="logo">Clear<span>è</span></div>
-      <div class="footer-tagline">Your skin, simplified.</div>
-
-      <div class="footer-social">
-        <a href="#" title="Instagram">📷</a>
-        <a href="#" title="TikTok">🎵</a>
-        <a href="#" title="Pinterest">📌</a>
-      </div>
-    </div>
-
-    <!-- Shop links -->
-    <div class="footer-links">
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="pages/shop.php">All Products</a></li>
-        <li><a href="pages/shop.php?cat=skincare">Skincare</a></li>
-        <li><a href="pages/shop.php?cat=spf">SPF</a></li>
-      </ul>
-    </div>
-
-    <!-- Account links -->
-    <div class="footer-links">
-      <h4>Account</h4>
-      <ul>
-        <li><a href="pages/login.php">Login</a></li>
-        <li><a href="pages/register.php">Register</a></li>
-        <li><a href="pages/cart.php">Cart</a></li>
-      </ul>
-    </div>
-
-    <!-- Info links -->
-    <div class="footer-links">
-      <h4>Info</h4>
-      <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-      </ul>
-    </div>
-
-  </div><!-- .footer-top -->
-
-  <!-- Trust bar -->
-  <div class="footer-trust">
-    <div class="footer-trust-item">
-      <div class="footer-trust-icon">🚚</div>
-      Free shipping over 3,000 L
-    </div>
-    <div class="footer-trust-item">
-      <div class="footer-trust-icon">✓</div>
-      Dermatologist tested
-    </div>
-    <div class="footer-trust-item">
-      <div class="footer-trust-icon">🌿</div>
-      Clean ingredients
-    </div>
-    <div class="footer-trust-item">
-      <div class="footer-trust-icon">↩</div>
-      Easy returns
-    </div>
-  </div>
-
-  <!-- Bottom bar -->
-  <div class="footer-bottom">
-    <span>&copy; <?php echo date('Y'); ?> Clearè · Academic PHP Project</span>
-    <div class="footer-bottom-right">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <span>Iva Pipero</span>
-    </div>
-  </div>
-
-</footer>
+<?php include('../includes/footer.php'); ?>
 
 
-<script>
-  const hamburger  = document.getElementById('hamburgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const overlay    = document.getElementById('mobileOverlay');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    overlay.classList.toggle('open');
-  });
-  overlay.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-    overlay.classList.remove('open');
-  });
-</script>
+<?php include(__DIR__ . '/../includes/nav-js.php'); ?>
 
 </body>
 </html>

@@ -35,36 +35,8 @@ foreach ($cart_items as $item) {
 </head>
 <body>
 
-<nav>
-  <a href="../index.php" class="nav-logo">Clear<span>è</span></a>
-  <ul class="nav-links">
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-  </ul>
-  <div class="nav-actions">
-    <a href="login.php" class="nav-icon" title="Account">👤</a>
-    <a href="cart.php" class="nav-icon" title="Cart">
-      🛒<span class="cart-badge"><?php echo count($cart_items); ?></span>
-    </a>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+<?php include(__DIR__ . '/../includes/nav.php'); ?>
 
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <ul>
-    <li><a href="shop.php?cat=skincare">Skincare</a></li>
-    <li><a href="shop.php?cat=makeup">Makeup</a></li>
-    <li><a href="shop.php?cat=hair">Hair</a></li>
-    <li><a href="shop.php?cat=body">Body</a></li>
-    <li><a href="login.php">Account</a></li>
-    <li><a href="cart.php">Cart</a></li>
-  </ul>
-</div>
 
 
 <!-- ============================================================
@@ -287,54 +259,11 @@ foreach ($cart_items as $item) {
 
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="logo">Clear<span>è</span></div>
-      <div class="footer-tagline">The clearest in sight.</div>
-    </div>
-    <div class="footer-links">
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="shop.php">All Products</a></li>
-        <li><a href="shop.php?cat=skincare">Skincare</a></li>
-        <li><a href="shop.php?cat=makeup">Makeup</a></li>
-        <li><a href="shop.php?cat=hair">Hair</a></li>
-        <li><a href="shop.php?cat=body">Body</a></li>
-      </ul>
-    </div>
-    <div class="footer-links">
-      <h4>Account</h4>
-      <ul>
-        <li><a href="login.php">Login</a></li>
-        <li><a href="register.php">Register</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>&copy; <?php echo date('Y'); ?> Clearè · Academic PHP Project</span>
-    <span>Iva Pipero</span>
-  </div>
-</footer>
+<?php include('../includes/footer.php'); ?>
 
 
+<?php include(__DIR__ . '/../includes/nav-js.php'); ?>
 <script>
-  // Mobile menu
-  const hamburger  = document.getElementById('hamburgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const overlay    = document.getElementById('mobileOverlay');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    overlay.classList.toggle('open');
-  });
-  overlay.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-    overlay.classList.remove('open');
-  });
-
-  // Show/hide card fields based on payment method
   const paymentOptions = document.querySelectorAll('input[name="payment"]');
   const cardFields     = document.getElementById('cardFields');
   paymentOptions.forEach(opt => {
@@ -343,7 +272,6 @@ foreach ($cart_items as $item) {
     });
   });
 
-  // Coupon logic (frontend only)
   const coupons = { 'CLEARE10': 10, 'NEWUSER': 15, 'SKIN20': 20 };
   const subtotal = <?php echo $subtotal; ?>;
   let discount = 0;
@@ -353,7 +281,6 @@ foreach ($cart_items as $item) {
     const msgEl   = document.getElementById('couponMsg');
     const discEl  = document.getElementById('discount-display');
     const totalEl = document.getElementById('total-display');
-
     if (coupons[code]) {
       discount = Math.round(subtotal * coupons[code] / 100);
       const total = subtotal - discount;
@@ -363,12 +290,11 @@ foreach ($cart_items as $item) {
       msgEl.textContent   = '✓ Coupon applied — ' + coupons[code] + '% off';
       msgEl.style.color   = 'var(--green-deep)';
     } else {
-      msgEl.textContent  = '✕ Invalid coupon code';
-      msgEl.style.color  = '#E74C3C';
+      msgEl.textContent = '✕ Invalid coupon code';
+      msgEl.style.color = '#E74C3C';
     }
   });
 
-  // Form submit (demo — do të lidhet me backend)
   document.getElementById('checkout-form').addEventListener('submit', (e) => {
     e.preventDefault();
     window.location.href = 'order-confirm.php';
