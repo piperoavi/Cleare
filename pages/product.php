@@ -1,0 +1,202 @@
+<?php
+/**
+ * product.php — Faqja e detajeve të produktit
+ *
+ * Merr ID-në e produktit nga URL (?id=N),
+ * kërkon produktin në array dhe e shfaq.
+ *
+ * Shembull: product.php?id=3 → shfaq COSRX Tonic
+ *
+ * Nëse ID nuk ekziston ose nuk është dhënë,
+ * faqja shfaq mesazh gabimi dhe ndalet.
+ */
+
+// Ngarkojmë array-in $products
+include("../includes/products.php");
+
+// Lexojmë ID nga URL dhe e konvertojmë në numër të plotë
+// Nëse parametri mungon, default-i është 0
+$product_id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+
+// Kërkojmë produktin me ID-në e dhënë
+$selected_product = null;
+
+foreach ($products as $product) {
+    if ($product['id'] === $product_id) {
+        $selected_product = $product;
+        break; // Gjejmë produktin, ndalim loop-in
+    }
+}
+
+// Nëse nuk gjetëm asnjë produkt me këtë ID, dalim nga faqja
+if (!$selected_product) {
+    echo "<p>Produkti nuk u gjet.</p>";
+    exit;
+}
+
+// Titulli dinamik i faqes, duke përdorur emrin e produktit
+$page_title = $selected_product['name'] . " - Clearè";
+?>
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $page_title; ?></title>
+
+    <!-- Fontet nga Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+    <!-- Stilet kryesore të projektit -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGIMI
+     ============================================================ -->
+<nav>
+    <!-- Logo -->
+    <a href="../index.php" class="nav-logo">Clear<span>è</span></a>
+
+    <!-- Link-at kryesore -->
+    <ul class="nav-links">
+        <li><a href="shop.php">Shop</a></li>
+        <li><a href="shop.php?cat=skincare">Skincare</a></li>
+        <li><a href="shop.php?cat=spf">SPF</a></li>
+        <li><a href="../pages/login.php">Llogaria</a></li>
+    </ul>
+
+    <!-- Ikonat dhe hamburger -->
+    <div class="nav-actions">
+        <a href="../pages/login.php" class="nav-icon" title="Llogaria">👤</a>
+        <a href="../pages/cart.php" class="nav-icon" title="Shporta">
+            🛒
+            <span class="cart-badge">0</span>
+        </a>
+
+        <button class="hamburger" id="hamburgerBtn" aria-label="Hap menunë">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Menu mobile -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <ul>
+        <li><a href="shop.php">Shop</a></li>
+        <li><a href="shop.php?cat=skincare">Skincare</a></li>
+        <li><a href="shop.php?cat=spf">SPF</a></li>
+        <li><a href="../pages/login.php">Llogaria</a></li>
+        <li><a href="../pages/cart.php">Shporta</a></li>
+    </ul>
+</div>
+
+
+<!-- ============================================================
+     DETAJET E PRODUKTIT
+     ============================================================ -->
+<section class="product-page">
+
+    <div class="product-details-card">
+
+        <!-- Kolona e majtë: imazhi i produktit -->
+        <div class="product-details-image">
+            <img
+                src="../assets/images/<?php echo $selected_product['image']; ?>"
+                alt="<?php echo $selected_product['name']; ?>"
+            >
+        </div>
+
+        <!-- Kolona e djathtë: informacioni dhe butonat -->
+        <div class="product-details-info">
+
+            <!-- Kategoria (p.sh. "SPF" ose "Skincare") -->
+            <div class="section-eyebrow"><?php echo $selected_product['category_label']; ?></div>
+
+            <!-- Emri i produktit -->
+            <h1 class="product-details-title"><?php echo $selected_product['name']; ?></h1>
+
+            <!-- Çmimi -->
+            <div class="product-details-price"><?php echo $selected_product['price']; ?></div>
+
+            <!-- Përshkrimi -->
+            <p class="product-details-desc"><?php echo $selected_product['description']; ?></p>
+
+            <!-- Butonat e veprimit -->
+            <div class="product-details-actions">
+                <button class="btn-primary">Shto në shportë</button>
+                <a href="shop.php" class="btn-outline">Kthehu te Shop</a>
+            </div>
+
+        </div><!-- .product-details-info -->
+
+    </div><!-- .product-details-card -->
+
+</section><!-- .product-page -->
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+    <div class="footer-top">
+
+        <div class="footer-brand">
+            <div class="logo">Clear<span>è</span></div>
+            <div class="footer-tagline">Your skin, simplified.</div>
+        </div>
+
+        <div class="footer-links">
+            <h4>Shop</h4>
+            <ul>
+                <li><a href="shop.php">Të gjitha</a></li>
+                <li><a href="shop.php?cat=skincare">Skincare</a></li>
+                <li><a href="shop.php?cat=spf">SPF</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links">
+            <h4>Llogaria</h4>
+            <ul>
+                <li><a href="../pages/login.php">Hyr</a></li>
+                <li><a href="../pages/register.php">Regjistrohu</a></li>
+                <li><a href="../pages/cart.php">Shporta</a></li>
+            </ul>
+        </div>
+
+    </div><!-- .footer-top -->
+
+    <div class="footer-bottom">
+        <span>&copy; <?php echo date('Y'); ?> Clearè · Projekt Akademik PHP</span>
+        <span>Iva Pipero</span>
+    </div>
+</footer>
+
+
+<!-- ============================================================
+     JAVASCRIPT — Menu mobile
+     ============================================================ -->
+<script>
+    const hamburger  = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay    = document.getElementById('mobileOverlay');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+        overlay.classList.toggle('open');
+    });
+
+    overlay.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        overlay.classList.remove('open');
+    });
+</script>
+
+</body>
+</html>
