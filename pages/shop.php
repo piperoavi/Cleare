@@ -1,37 +1,12 @@
 <?php
-/**
- * shop.php — Faqja e dyqanit
- * 
- * Shfaq të gjithë produktet ose vetëm ata të një kategorie,
- * bazuar në parametrin ?cat= në URL.
- * 
- * Shembuj:
- *   shop.php          → të gjitha produktet
- *   shop.php?cat=skincare → vetëm Skincare
- *   shop.php?cat=spf      → vetëm SPF
- */
+$page_title = "Shop — Clearè";
 
-$page_title = "Shop - Clearè";
+require_once __DIR__ . '/../includes/products_db.php';
 
-// Ngarkojmë listën e produkteve nga fajlli i dedikuar
-include("../includes/products.php");
-
-// Lexojmë kategorinë nga URL (nëse nuk ka, vlera default është string bosh)
-$selected_category = $_GET['cat'] ?? '';
+$selected_category = $_GET['cat']    ?? '';
 $search_query      = trim($_GET['search'] ?? '');
 
-$filtered_products = [];
-
-foreach ($products as $product) {
-    $matches_category = $selected_category === '' || $product['category'] === $selected_category;
-    $matches_search   = $search_query === '' ||
-                        stripos($product['name'], $search_query) !== false ||
-                        stripos($product['description'], $search_query) !== false;
-
-    if ($matches_category && $matches_search) {
-        $filtered_products[] = $product;
-    }
-}
+$filtered_products = getProducts($selected_category, $search_query);
 ?>
 <!DOCTYPE html>
 <html lang="sq">
@@ -109,39 +84,28 @@ foreach ($products as $product) {
 
         <?php if (count($filtered_products) > 0): ?>
 
-            <?php foreach ($filtered_products as $product): ?>
-
-                <!-- Çdo kartë është link drejt faqes së produktit -->
-                <a href="product.php?id=<?php echo $product['id']; ?>" class="product-card">
-
-                    <!-- Imazhi i produktit -->
-                    <div class="product-img product-img-real">
-                        <img
-                            src="../assets/images/<?php echo $product['image']; ?>"
-                            alt="<?php echo $product['name']; ?>"
-                        >
-                    </div>
-
-                    <!-- Informacioni i produktit -->
-                    <div class="product-body">
-                        <div class="product-cat-tag"><?php echo $product['category_label']; ?></div>
-                        <div class="product-name"><?php echo $product['name']; ?></div>
-
-                        <div class="product-footer">
-                            <span class="product-price"><?php echo $product['price']; ?></span>
-
-                            <!--
-                                event.preventDefault() parandalon navigimin
-                                kur klikohet butoni "+", pa kaluar te faqja e produktit.
-                                Logjika e shportës implementohet me JS ose session.
-                            -->
-                            <button class="btn-add" onclick="event.preventDefault()">+</button>
-                        </div>
-                    </div>
-
-                </a>
-
-            <?php endforeach; ?>
+           <?php foreach ($filtered_products as $product): ?>
+    <a href="product.php?id=<?php echo $product['id']; ?>" class="product-card">
+        <div class="product-img product-img-real">
+            <img src="../assets/images/<?php echo htmlspecialchars($product['image']); ?>"
+                 alt="<?php echo htmlspecialchars($product['name']); ?>">
+        </div>
+        <div class="product-body">
+            <div class="product-cat-tag">
+                <?php echo ucfirst($product['type']); ?>
+            </div>
+            <div class="product-name">
+                <?php echo htmlspecialchars($product['name']); ?>
+            </div>
+            <div class="product-footer">
+                <span class="product-price">
+                    <?php echo number_format($product['price'], 2); ?> L
+                </span>
+                <button class="btn-add" onclick="event.preventDefault()">+</button>
+            </div>
+        </div>
+    </a>
+<?php endforeach; ?>
 
         <?php else: ?>
 

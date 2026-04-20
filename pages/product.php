@@ -1,41 +1,15 @@
 <?php
-/**
- * product.php — Faqja e detajeve të produktit
- *
- * Merr ID-në e produktit nga URL (?id=N),
- * kërkon produktin në array dhe e shfaq.
- *
- * Shembull: product.php?id=3 → shfaq COSRX Tonic
- *
- * Nëse ID nuk ekziston ose nuk është dhënë,
- * faqja shfaq mesazh gabimi dhe ndalet.
- */
+require_once __DIR__ . '/../includes/products_db.php';
 
-// Ngarkojmë array-in $products
-include("../includes/products.php");
+$product_id      = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+$selected_product = getProductById($product_id);
 
-// Lexojmë ID nga URL dhe e konvertojmë në numër të plotë
-// Nëse parametri mungon, default-i është 0
-$product_id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-
-// Kërkojmë produktin me ID-në e dhënë
-$selected_product = null;
-
-foreach ($products as $product) {
-    if ($product['id'] === $product_id) {
-        $selected_product = $product;
-        break; // Gjejmë produktin, ndalim loop-in
-    }
-}
-
-// Nëse nuk gjetëm asnjë produkt me këtë ID, dalim nga faqja
 if (!$selected_product) {
-    echo "<p>Produkti nuk u gjet.</p>";
+    echo "<p>Product not found.</p>";
     exit;
 }
 
-// Titulli dinamik i faqes, duke përdorur emrin e produktit
-$page_title = $selected_product['name'] . " - Clearè";
+$page_title = $selected_product['name'] . " — Clearè";
 ?>
 <!DOCTYPE html>
 <html lang="sq">
@@ -78,7 +52,11 @@ $page_title = $selected_product['name'] . " - Clearè";
         <div class="product-details-info">
 
             <!-- Kategoria (p.sh. "SPF" ose "Skincare") -->
-            <div class="section-eyebrow"><?php echo $selected_product['category_label']; ?></div>
+            <div class="section-eyebrow"><?php echo ucfirst($selected_product['type']); ?></div>
+<h1 class="product-details-title"><?php echo htmlspecialchars($selected_product['name']); ?></h1>
+<div class="product-details-price"><?php echo number_format($selected_product['price'], 2); ?> L</div>
+<p class="product-details-desc"><?php echo htmlspecialchars($selected_product['description']); ?></p>
+<img src="../assets/images/<?php echo htmlspecialchars($selected_product['image']); ?>"<div class="section-eyebrow"><?php echo $selected_product['category_label']; ?></div>
 
             <!-- Emri i produktit -->
             <h1 class="product-details-title"><?php echo $selected_product['name']; ?></h1>
