@@ -53,10 +53,6 @@ $page_title = $selected_product['name'] . " — Clearè";
 
             <!-- Kategoria (p.sh. "SPF" ose "Skincare") -->
             <div class="section-eyebrow"><?php echo ucfirst($selected_product['type']); ?></div>
-<h1 class="product-details-title"><?php echo htmlspecialchars($selected_product['name']); ?></h1>
-<div class="product-details-price"><?php echo number_format($selected_product['price'], 2); ?> L</div>
-<p class="product-details-desc"><?php echo htmlspecialchars($selected_product['description']); ?></p>
-<img src="../assets/images/<?php echo htmlspecialchars($selected_product['image']); ?>"<div class="section-eyebrow"><?php echo $selected_product['category_label']; ?></div>
 
             <!-- Emri i produktit -->
             <h1 class="product-details-title"><?php echo $selected_product['name']; ?></h1>
@@ -69,8 +65,8 @@ $page_title = $selected_product['name'] . " — Clearè";
 
             <!-- Butonat e veprimit -->
             <div class="product-details-actions">
-                <button class="btn-primary">Shto në shportë</button>
-                <a href="shop.php" class="btn-outline">Kthehu te Shop</a>
+                <button class="btn-primary">Add to Cart</button>
+                <a href="shop.php" class="btn-outline">Back to Shop</a>
             </div>
 
         </div><!-- .product-details-info -->
