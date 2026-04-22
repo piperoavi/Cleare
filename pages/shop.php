@@ -110,7 +110,7 @@ $filtered_products = getProducts($selected_category, $search_query);
         <?php else: ?>
 
             <!-- Mesazhi nëse nuk ka produkte në këtë kategori -->
-            <p>Nuk u gjetën produkte në këtë kategori.</p>
+            <p>No products found in this category.</p>
 
         <?php endif; ?>
 
