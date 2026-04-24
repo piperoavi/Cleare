@@ -1,50 +1,19 @@
-/* ============================================================
-   style.css — Clearè Skincare Shop
-   Projekt Akademik PHP · Iva Pipero
-   ============================================================
-   Struktura:
-   1.  Variabla CSS (ngjyrat, fontet)
-   2.  Reset & bazë
-   3.  Navigimi (nav, hamburger, menu mobile)
-   4.  Hero section
-   5.  Trust bar
-   6.  Seksioni i kategorive
-   7.  Grila e produkteve
-   8.  Banner me kupon
-   9.  Footer
-   10. Faqja Shop (shop.php)
-   11. Faqja e produktit (product.php)
-   12. Responsive (tablet & mobile)
-   ============================================================ */
-
-
-/* ============================================================
-   1. VARIABLA CSS
-   Të gjitha ngjyrat dhe vlerat e përsëritura ruhen këtu,
-   në mënyrë që ndryshimet të bëhen vetëm në një vend.
-   ============================================================ */
+/*NGJYRAT*/
 :root {
-  /* Paleta kryesore */
-  --sky:       #D6EEF5;   /* blu e çelët — background seksionesh */
-  --sky-mid:   #A8D8EA;   /* blu mesatare — border, hover */
-  --sky-deep:  #5BAFC9;   /* blu e thellë — akcent kryesor */
-  --green:     #B8D8C8;   /* gjelbër e butë — balancë vizuale */
-  --green-deep:#6FAE8E;   /* gjelbër e thellë — akcent dytësor */
+  --sky:       #D6EEF5;
+  --sky-mid:   #A8D8EA;
+  --sky-deep:  #5BAFC9;
+  --green:     #B8D8C8;
+  --green-deep:#6FAE8E;
 
-  /* Ngjyra neutrale */
-  --white:     #FAFCFD;   /* background kryesor (pothuajse e bardhë) */
-  --cream:     #F0F7F4;   /* background seksionesh alternative */
-  --ink:       #1E2A2E;   /* tekst kryesor (pothuajse e zezë) */
-  --ink-soft:  #4A6070;   /* tekst dytësor, përshkrime */
-  --gold:      #A89070;   /* e artë — dekorativë, opsionale */
+
+  --white:     #FAFCFD;
+  --cream:     #F0F7F4;
+  --ink:       #1E2A2E;
+  --ink-soft:  #4A6070;
+  --gold:      #A89070;
 }
 
-
-/* ============================================================
-   2. RESET & BAZË
-   Heqim stilet e ndryshme të browser-ave dhe
-   vendosim stilin bazë të faqes.
-   ============================================================ */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -52,24 +21,20 @@
 }
 
 html {
-  scroll-behavior: smooth; /* Lëvizje e butë kur klikojmë link-a të brendshëm */
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--white);
   color: var(--ink);
-  overflow-x: hidden; /* Parandalon scroll horizontal aksidental */
+  overflow-x: hidden;
 }
 
 
-/* ============================================================
-   3. NAVIGIMI
-   ============================================================ */
-
-/* ── Nav kryesor ── */
+/* NAV BAR */
 nav {
-  position: fixed;       /* Mbetet lart edhe kur scrollojmë */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -79,12 +44,12 @@ nav {
   justify-content: space-between;
   padding: 20px 48px;
   background: rgba(250, 252, 253, 0.85);
-  backdrop-filter: blur(12px);           /* Efekti "frosted glass" */
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(91, 175, 201, 0.12);
   transition: padding 0.3s ease;
 }
 
-/* ── Logo ── */
+/* LOGO */
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
   font-size: 28px;
@@ -96,10 +61,9 @@ nav {
 
 .nav-logo span {
   color: var(--sky-deep);
-  font-style: italic;   /* Germa "è" në kursive me ngjyrë */
+  font-style: italic;
 }
 
-/* ── Link-at e navigimit ── */
 .nav-links {
   display: flex;
   gap: 36px;
@@ -114,10 +78,9 @@ nav {
   text-decoration: none;
   font-weight: 400;
   transition: color 0.2s;
-  position: relative;    /* Nevojitet për pseudo-elementin ::after (vija hover) */
+  position: relative;
 }
 
-/* Vija e hollë që shfaqet poshtë link-it kur hoveron */
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -133,7 +96,6 @@ nav {
 .nav-links a:hover { color: var(--sky-deep); }
 .nav-links a:hover::after { transform: scaleX(1); }
 
-/* ── Ikonat (profili & shporta) ── */
 .nav-actions {
   display: flex;
   align-items: center;
@@ -152,7 +114,7 @@ nav {
   text-decoration: none;
   font-size: 16px;
   transition: all 0.25s;
-  position: relative;  /* Nevojitet për numrin e shportës (.cart-badge) */
+  position: relative;
 }
 
 .nav-icon:hover {
@@ -178,9 +140,9 @@ nav {
   justify-content: center;
 }
 
-/* ── Butoni hamburger (vetëm mobile) ── */
+/* Mobile apation */
 .hamburger {
-  display: none;             /* I fshehur në desktop */
+  display: none;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
@@ -210,12 +172,10 @@ nav {
 
 .hamburger:hover span { background: var(--sky-deep); }
 
-/* Animacioni X kur menu hapet */
 .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* ── Menu mobile (slide-in nga e djathta) ── */
 .mobile-menu {
   display: none;
   position: fixed;
@@ -232,7 +192,6 @@ nav {
   box-shadow: -12px 0 40px rgba(30, 42, 46, 0.08);
 }
 
-/* Kur hapet, slide-on nga e djathta */
 .mobile-menu.open { transform: translateX(0); }
 
 .mobile-menu ul { list-style: none; }
@@ -255,7 +214,6 @@ nav {
 
 .mobile-menu ul li a:hover { color: var(--sky-deep); }
 
-/* Mbulesa e errët kur menu mobile është hapur */
 .mobile-overlay {
   display: none;
   position: fixed;
@@ -274,10 +232,7 @@ nav {
 }
 
 
-/* ============================================================
-   4. HERO SECTION
-   Seksioni i parë i faqes kryesore (index.php)
-   ============================================================ */
+/* HERO SECTION */
 .hero {
   min-height: 100vh;
   display: grid;
@@ -289,7 +244,6 @@ nav {
   background: linear-gradient(145deg, #EAF6FB 0%, #D6EEF5 40%, #C8E8D8 80%, #EAF6FB 100%);
 }
 
-/* Dy gradient-e radial mbi background — krijon thellësi vizuale */
 .hero::before {
   content: '';
   position: absolute;
@@ -300,7 +254,6 @@ nav {
   pointer-events: none;
 }
 
-/* ── Blob-at lundruese (ornamente sferike) ── */
 .blob {
   position: absolute;
   border-radius: 50%;
@@ -312,13 +265,11 @@ nav {
 .blob-2 { width: 240px; height: 240px; background: rgba(111, 174, 142, 0.12); bottom: 60px; left: -60px; animation-delay: -5s; }
 .blob-3 { width: 160px; height: 160px; background: rgba(168, 216, 234, 0.15); top: 35%; left: 45%; animation-delay: -9s; }
 
-/* Lëvizja e butë e blob-ave */
 @keyframes drift {
   from { transform: translate(0, 0) scale(1); }
   to   { transform: translate(24px, 18px) scale(1.07); }
 }
 
-/* ── Teksti i hero-s ── */
 .hero-content {
   position: relative;
   z-index: 2;
@@ -337,7 +288,6 @@ nav {
   gap: 12px;
 }
 
-/* Vija dekorative para tekstit "eyebrow" */
 .hero-eyebrow::before {
   content: '';
   display: inline-block;
@@ -348,7 +298,7 @@ nav {
 
 .hero-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(52px, 6vw, 88px);   /* Madhësia rregullohet me ekranin */
+  font-size: clamp(52px, 6vw, 88px);
   font-weight: 300;
   line-height: 1.05;
   color: var(--ink);
@@ -375,7 +325,6 @@ nav {
   flex-wrap: wrap;
 }
 
-/* ── Butonat kryesorë (të ripërdorshëm në gjithë faqen) ── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -426,7 +375,6 @@ nav {
   transform: translateY(-2px);
 }
 
-/* ── Karta produkt në hero (ana e djathtë) ── */
 .hero-visual {
   position: relative;
   z-index: 2;
@@ -450,7 +398,6 @@ nav {
   position: relative;
 }
 
-/* Vija gradient në krye të kartës */
 .hero-product-card::before {
   content: '';
   position: absolute;
@@ -512,7 +459,6 @@ nav {
   transform: translateY(-2px);
 }
 
-/* Kartat e vogla lundruese mbi hero-visual */
 .float-badge {
   position: absolute;
   background: white;
@@ -538,7 +484,6 @@ nav {
   background: var(--green-deep);
 }
 
-/* Animacionet kryesore */
 @keyframes float {
   from { transform: translateY(0); }
   to   { transform: translateY(-8px); }
@@ -550,10 +495,7 @@ nav {
 }
 
 
-/* ============================================================
-   5. TRUST BAR
-   Shiriти i zi nën hero me benefitet kryesore
-   ============================================================ */
+/* TRUST BAR */
 .trust-bar {
   background: var(--ink);
   color: var(--sky-mid);
@@ -578,7 +520,6 @@ nav {
 
 .trust-item span { font-size: 15px; }
 
-/* Ndarësi vertikal midis artikujve */
 .trust-sep {
   width: 1px;
   height: 20px;
@@ -586,9 +527,7 @@ nav {
 }
 
 
-/* ============================================================
-   6. SEKSIONI I KATEGORIVE
-   ============================================================ */
+/* SEKSIONI I KATEGORIVE */
 .section-wrap {
   padding: 100px 72px;
 }
@@ -597,7 +536,6 @@ nav {
   margin-bottom: 52px;
 }
 
-/* Teksti i vogël mbi titullin kryesor */
 .section-eyebrow {
   font-size: 11px;
   letter-spacing: 0.3em;
@@ -638,7 +576,6 @@ nav {
   overflow: hidden;
 }
 
-/* Efekti i lehtë i ngjyrës kur hoveron */
 .cat-card::after {
   content: '';
   position: absolute;
@@ -689,10 +626,7 @@ nav {
 }
 
 
-/* ============================================================
-   7. GRILA E PRODUKTEVE
-   Përdoret si në index.php ashtu edhe në shop.php
-   ============================================================ */
+/* LISTA E PRODUKTEVE */
 .products-section {
   background: var(--cream);
   padding: 100px 72px;
@@ -704,7 +638,6 @@ nav {
   gap: 24px;
 }
 
-/* ── Karta e produktit ── */
 .product-card {
   background: white;
   border-radius: 20px;
@@ -721,7 +654,6 @@ nav {
   box-shadow: 0 20px 48px rgba(30, 42, 46, 0.1);
 }
 
-/* Zona e imazhit (me emoji ose fotografi reale) */
 .product-img {
   height: 200px;
   display: flex;
@@ -732,7 +664,6 @@ nav {
   position: relative;
 }
 
-/* Imazhi real i produktit (nga assets/images/) */
 .product-img-real {
   height: 220px;
   background: #ffffff;
@@ -746,7 +677,6 @@ nav {
   display: block;
 }
 
-/* Badge "New" ose "Sale" mbi imazh */
 .product-badge {
   position: absolute;
   top: 14px;
@@ -765,7 +695,6 @@ nav {
   padding: 20px 22px 24px;
 }
 
-/* Etiketa e kategorisë (p.sh. "SKINCARE") */
 .product-cat-tag {
   font-size: 10px;
   letter-spacing: 0.2em;
@@ -796,7 +725,6 @@ nav {
   color: var(--ink);
 }
 
-/* Butoni "+" për shtim të shpejtë në shportë */
 .btn-add {
   width: 34px;
   height: 34px;
@@ -819,9 +747,7 @@ nav {
 }
 
 
-/* ============================================================
-   8. BANNER ME KUPON
-   ============================================================ */
+/* BANNER ME KUPON */
 .banner {
   margin: 0 72px;
   background: linear-gradient(135deg, var(--ink) 0%, #2A3F4A 100%);
@@ -835,7 +761,6 @@ nav {
   overflow: hidden;
 }
 
-/* Dy rrathë dekorativë pas banner-it */
 .banner::before {
   content: '';
   position: absolute;
@@ -911,7 +836,6 @@ nav {
   box-shadow: 0 8px 24px rgba(91, 175, 201, 0.3);
 }
 
-/* Kutia e kuponit brenda banner-it */
 .banner-coupon {
   position: relative;
   z-index: 1;
@@ -940,7 +864,6 @@ nav {
   margin-bottom: 16px;
 }
 
-/* Kodi i kuponit — klikohet për kopjim */
 .coupon-code-box {
   background: rgba(91, 175, 201, 0.15);
   border: 1px dashed rgba(91, 175, 201, 0.4);
@@ -961,9 +884,7 @@ nav {
 }
 
 
-/* ============================================================
-   9. FOOTER
-   ============================================================ */
+/* FOOTER */
 
 footer {
   background: var(--ink);
@@ -974,7 +895,6 @@ footer {
   overflow: hidden;
 }
 
-/* Dy rrathë dekorativë në background */
 footer::before {
   content: '';
   position: absolute;
@@ -1008,7 +928,6 @@ footer::after {
   z-index: 1;
 }
 
-/* ── Brendi ── */
 .footer-brand .logo {
   font-family: 'Cormorant Garamond', serif;
   font-size: 36px;
@@ -1032,7 +951,6 @@ footer::after {
   letter-spacing: 0.05em;
 }
 
-/* Ikonat sociale */
 .footer-social {
   display: flex;
   gap: 10px;
@@ -1058,7 +976,6 @@ footer::after {
   background: rgba(91, 175, 201, 0.08);
 }
 
-/* ── Kolonat e link-ave ── */
 .footer-links h4 {
   font-size: 10px;
   letter-spacing: 0.3em;
@@ -1108,7 +1025,6 @@ footer::after {
   background: var(--sky-mid);
 }
 
-/* ── Shiriti i besimit (midis top dhe bottom) ── */
 .footer-trust {
   display: flex;
   gap: 32px;
@@ -1143,7 +1059,6 @@ footer::after {
   flex-shrink: 0;
 }
 
-/* ── Rreshti i poshtëm ── */
 .footer-bottom {
   border-top: none;
   padding-top: 0;
@@ -1174,7 +1089,6 @@ footer::after {
   color: rgba(214, 238, 245, 0.6);
 }
 
-/* ── Responsive ── */
 @media (max-width: 1024px) {
   .footer-top {
     grid-template-columns: 1fr 1fr;
@@ -1203,9 +1117,7 @@ footer::after {
 }
 
 
-/* ============================================================
-   10. FAQJA SHOP (shop.php)
-   ============================================================ */
+/* FAQJA SHOP */
 .shop-page {
   padding: 140px 72px 80px;
   min-height: 100vh;
@@ -1223,7 +1135,6 @@ footer::after {
   margin-top: 12px;
 }
 
-/* Filtrat e kategorive (Të gjitha / Skincare / SPF) */
 .shop-filters {
   display: flex;
   justify-content: center;
@@ -1248,7 +1159,6 @@ footer::after {
   background: white;
 }
 
-/* Filtri aktiv dhe hover duken njësoj */
 .filter-btn:hover,
 .filter-btn.active {
   background: var(--sky-deep);
@@ -1261,16 +1171,13 @@ footer::after {
 }
 
 
-/* ============================================================
-   11. FAQJA E PRODUKTIT (product.php)
-   ============================================================ */
+/* FAQJA E PRODUKTIT */
 .product-page {
   padding: 140px 72px 80px;
   min-height: 100vh;
   background: linear-gradient(180deg, #FAFCFD 0%, #F0F7F4 100%);
 }
 
-/* Karta kryesore me 2 kolona: imazh + info */
 .product-details-card {
   max-width: 1100px;
   margin: 0 auto;
@@ -1332,14 +1239,7 @@ footer::after {
   flex-wrap: wrap;
 }
 
-
-/* ============================================================
-   12. RESPONSIVE
-   ============================================================ */
-
-/* ── Tablet (≤ 1024px) ── */
 @media (max-width: 1024px) {
-  /* Hero: nga 2 kolona në 1 kolonë */
   .hero {
     grid-template-columns: 1fr;
     padding: 120px 40px 80px;
@@ -1351,7 +1251,6 @@ footer::after {
   .hero-buttons { justify-content: center; }
   .hero-visual  { margin-top: 48px; }
 
-  /* Float badges fshihen — zënë hapësirë */
   .float-badge-1,
   .float-badge-2 { display: none; }
 
@@ -1365,7 +1264,6 @@ footer::after {
 
   footer { padding: 48px 40px 24px; }
 
-  /* Shop & product pages */
   .shop-page,
   .product-page { padding: 120px 40px 70px; }
 
@@ -1377,14 +1275,11 @@ footer::after {
   .product-details-image { min-height: 320px; }
 }
 
-/* ── Mobile (≤ 640px) ── */
 @media (max-width: 640px) {
   nav { padding: 16px 24px; }
 
-  /* Link-at e nav fshihen — shfaqet hamburger-i */
   .nav-links { display: none; }
 
-  /* Hamburger dhe menu mobile shfaqen */
   .hamburger       { display: flex; }
   .mobile-menu     { display: block; }
   .mobile-overlay  { display: block; }
@@ -1404,7 +1299,6 @@ footer::after {
   .trust-bar { gap: 20px; padding: 16px 24px; }
   .trust-sep { display: none; }
 
-  /* Shop & product pages */
   .shop-page,
   .product-page { padding: 100px 24px 60px; }
 
@@ -1415,9 +1309,7 @@ footer::after {
   .product-img-real { height: 200px; }
 }
 
-/* ============================================================
-   13. AUTH PAGES (login.php & register.php)
-   ============================================================ */
+/* AUTH PAGES */
 .auth-page {
   min-height: 100vh;
   display: flex;
@@ -1472,6 +1364,21 @@ footer::after {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.auth-errors {
+  background: rgba(231, 76, 60, 0.08);
+  border: 1px solid rgba(231, 76, 60, 0.25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+
+.auth-errors p {
+  font-size: 13px;
+  color: #E74C3C;
+  margin: 0;
+  padding: 3px 0;
 }
 
 .form-group {
@@ -1532,9 +1439,7 @@ footer::after {
   text-decoration: underline;
 }
 
-/* ============================================================
-   14. CART PAGE (cart.php)
-   ============================================================ */
+/* CART PAGE */
 .cart-page {
   padding: 140px 72px 80px;
   min-height: 100vh;
@@ -1549,7 +1454,6 @@ footer::after {
   margin-top: 48px;
 }
 
-/* ── Cart rows ── */
 .cart-items {
   display: flex;
   flex-direction: column;
@@ -1612,7 +1516,6 @@ footer::after {
   color: var(--ink-soft);
 }
 
-/* ── Quantity controls ── */
 .cart-qty {
   display: flex;
   align-items: center;
@@ -1668,7 +1571,6 @@ footer::after {
   background: rgba(231, 76, 60, 0.08);
 }
 
-/* ── Order summary ── */
 .cart-summary {
   background: white;
   border: 1px solid rgba(91, 175, 201, 0.15);
@@ -1762,7 +1664,6 @@ footer::after {
 
 .cart-continue:hover { color: var(--sky-deep); }
 
-/* ── Empty cart ── */
 .cart-empty {
   text-align: center;
   padding: 80px 24px;
@@ -1787,7 +1688,6 @@ footer::after {
   margin-bottom: 32px;
 }
 
-/* ── Cart responsive ── */
 @media (max-width: 1024px) {
   .cart-page   { padding: 120px 40px 60px; }
   .cart-layout { grid-template-columns: 1fr; }
@@ -1805,9 +1705,7 @@ footer::after {
   .cart-remove     { grid-column: 1 / -1; justify-self: end; }
 }
 
-/* ============================================================
-   15. CHECKOUT PAGE (checkout.php)
-   ============================================================ */
+/* CHECKOUT PAGE */
 .checkout-page {
   padding: 140px 72px 80px;
   min-height: 100vh;
@@ -1822,7 +1720,6 @@ footer::after {
   margin-top: 48px;
 }
 
-/* ── Progress steps ── */
 .checkout-steps {
   display: flex;
   align-items: center;
@@ -1877,7 +1774,6 @@ footer::after {
   margin-bottom: 20px;
 }
 
-/* ── Checkout form ── */
 .checkout-section-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 24px;
@@ -1898,7 +1794,6 @@ footer::after {
   gap: 16px;
 }
 
-/* ── Payment options ── */
 .payment-options {
   display: flex;
   flex-direction: column;
@@ -1944,7 +1839,6 @@ footer::after {
   margin-top: 2px;
 }
 
-/* ── Card fields ── */
 .card-fields {
   display: block;
   padding: 20px;
@@ -1955,7 +1849,6 @@ footer::after {
 
 .card-fields .form-group { margin-bottom: 0; }
 
-/* ── Checkout note ── */
 .checkout-note {
   font-size: 12px;
   color: var(--ink-soft);
@@ -1964,7 +1857,6 @@ footer::after {
   opacity: 0.7;
 }
 
-/* ── Checkout item rows in summary ── */
 .checkout-item-row {
   display: flex;
   align-items: center;
@@ -2014,7 +1906,6 @@ footer::after {
   min-height: 18px;
 }
 
-/* ── Responsive ── */
 @media (max-width: 1024px) {
   .checkout-page   { padding: 120px 40px 60px; }
   .checkout-layout { grid-template-columns: 1fr; }
@@ -2025,16 +1916,13 @@ footer::after {
   .form-row      { grid-template-columns: 1fr; }
 }
 
-/* ============================================================
-   16. ORDER CONFIRMATION (order-confirm.php)
-   ============================================================ */
+/* ORDER CONFIRMATION */
 .confirm-page {
   padding: 140px 72px 80px;
   min-height: 100vh;
   background: var(--white);
 }
 
-/* ── Success hero ── */
 .confirm-hero {
   text-align: center;
   margin-bottom: 56px;
@@ -2081,7 +1969,6 @@ footer::after {
   font-weight: 500;
 }
 
-/* ── Layout ── */
 .confirm-layout {
   display: grid;
   grid-template-columns: 1fr 360px;
@@ -2095,7 +1982,6 @@ footer::after {
   gap: 24px;
 }
 
-/* ── Cards ── */
 .confirm-card {
   background: white;
   border: 1px solid rgba(91, 175, 201, 0.12);
@@ -2163,7 +2049,6 @@ footer::after {
   gap: 4px;
 }
 
-/* ── Responsive ── */
 @media (max-width: 1024px) {
   .confirm-page   { padding: 120px 40px 60px; }
   .confirm-layout { grid-template-columns: 1fr; }
@@ -2173,9 +2058,7 @@ footer::after {
   .confirm-page { padding: 100px 24px 60px; }
 }
 
-/* ============================================================
-   17. STATIC PAGES (about, contact, terms)
-   ============================================================ */
+/* STATIC PAGES */
 .static-page {
   padding: 140px 72px 80px;
   min-height: 100vh;
@@ -2212,9 +2095,7 @@ footer::after {
   .static-card { padding: 28px 24px; }
 }
 
-/* ============================================================
-   18. NAV SEARCH BAR
-   ============================================================ */
+/* SEARCH BAR */
 .nav-search {
   display: flex;
   align-items: center;
