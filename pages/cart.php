@@ -53,7 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$coupon) {
             $coupon_msg = 'error:Invalid or expired coupon code.';
         } else {
-            // Kontrollo nëse NEWUSER është përdorur
+            // NEWUSER vetëm për të regjistruarit
+            if ($code === 'NEWUSER' && !isset($_SESSION['user_id'])) {
+                $coupon_msg = 'error:This coupon is only available for registered customers. Please log in or create an account.';
+                header('Location: cart.php?msg=' . urlencode($coupon_msg));
+                exit;
+            }
+
+            // Kontrollo nëse NEWUSER është përdorur tashmë
             if ($code === 'NEWUSER' && isset($_SESSION['user_id'])) {
                 $stmt2 = $pdo->prepare("
                     SELECT id FROM coupon_usage
