@@ -65,7 +65,12 @@ $page_title = $selected_product['name'] . " — Clearè";
 
             <!-- Butonat e veprimit -->
             <div class="product-details-actions">
-                <button class="btn-primary">Add to Cart</button>
+                <form action="/cleare/actions/add-to-cart.php" method="POST">
+                    <input type="hidden" name="product_id" value="<?php echo $selected_product['id']; ?>">
+                    <input type="hidden" name="quantity"   value="1">
+                    <input type="hidden" name="redirect"   value="/cleare/pages/product.php?id=<?php echo $selected_product['id']; ?>">
+                    <button type="submit" class="btn-primary">Add to Cart</button>
+                </form>
                 <a href="shop.php" class="btn-outline">Back to Shop</a>
             </div>
 
