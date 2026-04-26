@@ -101,7 +101,12 @@ $filtered_products = getProducts($selected_category, $search_query);
                 <span class="product-price">
                     <?php echo number_format($product['price'], 2); ?> L
                 </span>
-                <button class="btn-add" onclick="event.preventDefault()">+</button>
+                <form action="/cleare/actions/add-to-cart.php" method="POST" style="margin:0">
+                    <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                    <input type="hidden" name="quantity"   value="1">
+                    <input type="hidden" name="redirect"   value="/cleare/pages/shop.php<?php echo isset($_GET['cat']) ? '?cat='.$_GET['cat'] : ''; ?>">
+                    <button type="submit" class="btn-add">+</button>
+                </form>
             </div>
         </div>
     </a>

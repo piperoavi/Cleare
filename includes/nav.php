@@ -1,4 +1,9 @@
 <?php
+require_once __DIR__ . '/cart_functions.php';
+$cart_count = cart_count();
+?>
+
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -22,12 +27,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
   <div class="nav-actions">
     <?php if (isset($_SESSION['user_id'])): ?>
-        <a href="/cleare/pages/logout.php" class="nav-icon" title="Logout — <?php echo htmlspecialchars($_SESSION['user_name']); ?>">👤</a>
+    <a href="/cleare/pages/profile.php" class="nav-icon" title="<?php echo htmlspecialchars($_SESSION['user_name']); ?>"> 👤 </a>
     <?php else: ?>
         <a href="/cleare/pages/login.php" class="nav-icon" title="Account">👤</a>
     <?php endif; ?>
     <a href="/cleare/pages/cart.php" class="nav-icon" title="Cart">
-      🛒<span class="cart-badge">0</span>
+        🛒<span class="cart-badge"><?php echo $cart_count; ?></span>
     </a>
     <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
       <span></span><span></span><span></span>
