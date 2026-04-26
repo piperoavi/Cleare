@@ -1,5 +1,46 @@
 <?php
-$page_title = "Login — Clearè";
+session_start();
+
+require_once __DIR__ . '/../includes/db.php';
+
+$errors = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $email    = trim($_POST['email']    ?? '');
+    $password =      $_POST['password'] ?? '';
+
+    if ($email === '' || $password === '') {
+        $errors[] = 'Email and password are required.';
+    }
+
+    if (empty($errors)) {
+        $stmt = $pdo->prepare("
+            SELECT u.id, u.name, u.password, r.name AS role
+            FROM users u
+            JOIN roles r ON u.role_id = r.id
+            WHERE u.email = ?
+            LIMIT 1
+        ");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
+
+        if (!$user || !password_verify($password, $user['password'])) {
+            $errors[] = 'Invalid email or password.';
+        } else {
+            $_SESSION['user_id']   = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['user_role'] = $user['role'];
+
+            if ($user['role'] === 'admin') {
+                header('Location: /cleare/pages/admin/index.php');
+            } else {
+                header('Location: /cleare/index.php');
+            }
+            exit;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +63,14 @@ $page_title = "Login — Clearè";
     <h1 class="auth-title">Welcome back</h1>
     <p class="auth-sub">Sign in to your account</p>
 
+    <?php if (!empty($errors)): ?>
+        <div class="auth-errors">
+            <?php foreach ($errors as $error): ?>
+                <p>⚠️ <?php echo htmlspecialchars($error); ?></p>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+    
     <form class="auth-form" action="login.php" method="POST">
 
       <div class="form-group">
