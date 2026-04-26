@@ -1,6 +1,5 @@
 /* ============================================================
    style.css — Clearè Skincare Shop
-   Projekt Akademik PHP · Iva Pipero
    ============================================================
    Struktura:
    1.  Variabla CSS (ngjyrat, fontet)
@@ -1472,6 +1471,22 @@ footer::after {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+
+.auth-errors {
+  background: rgba(231, 76, 60, 0.08);
+  border: 1px solid rgba(231, 76, 60, 0.25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+
+.auth-errors p {
+  font-size: 13px;
+  color: #E74C3C;
+  margin: 0;
+  padding: 3px 0;
 }
 
 .form-group {
