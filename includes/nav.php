@@ -22,7 +22,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
   <div class="nav-actions">
     <?php if (isset($_SESSION['user_id'])): ?>
-        <a href="/cleare/pages/logout.php" class="nav-icon" title="Logout — <?php echo htmlspecialchars($_SESSION['user_name']); ?>">👤</a>
+    <a href="/cleare/pages/profile.php" class="nav-icon" title="<?php echo htmlspecialchars($_SESSION['user_name']); ?>"> 👤 </a>
     <?php else: ?>
         <a href="/cleare/pages/login.php" class="nav-icon" title="Account">👤</a>
     <?php endif; ?>
