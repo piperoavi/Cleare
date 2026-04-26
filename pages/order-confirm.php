@@ -1,150 +1,188 @@
 <?php
+session_start();
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/auth.php';
+
 $page_title = "Order Confirmed — Clearè";
 
-// Demo order data (do të vijë nga session/DB më vonë)
-$order = [
-    "number"   => "CLR-" . rand(10000, 99999),
-    "date"     => date("d M Y"),
-    "name"     => "Jane Doe",
-    "email"    => "jane@example.com",
-    "address"  => "Rruga e Durrësit, Nr. 12, Tirana",
-    "payment"  => "Credit Card",
-    "items"    => [
-        ["name" => "The Ordinary Serum",  "qty" => 1, "price" => 3200],
-        ["name" => "Centella Sunscreen",  "qty" => 2, "price" => 2400],
-    ],
-    "subtotal" => 8000,
-    "discount" => 0,
-    "total"    => 8000,
-];
+// Kontrollo nëse ka order_id
+$order_id = (int) ($_GET['order_id'] ?? 0);
+
+if ($order_id === 0) {
+    header('Location: shop.php');
+    exit;
+}
+
+// Merr porosinë nga DB
+$stmt = $pdo->prepare("
+    SELECT o.*, 
+           c.code AS coupon_code
+    FROM orders o
+    LEFT JOIN coupons c ON o.coupon_id = c.id
+    WHERE o.id = ?
+");
+$stmt->execute([$order_id]);
+$order = $stmt->fetch();
+
+if (!$order) {
+    header('Location: shop.php');
+    exit;
+}
+
+// Merr produktet e porosisë
+$stmt2 = $pdo->prepare("
+    SELECT * FROM order_items WHERE order_id = ?
+");
+$stmt2->execute([$order_id]);
+$items = $stmt2->fetchAll();
+
+// Numri i formatuar i porosisë
+$order_number = 'CLR-' . str_pad($order_id, 5, '0', STR_PAD_LEFT);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php echo $page_title; ?></title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $page_title; ?></title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
 <?php include(__DIR__ . '/../includes/nav.php'); ?>
 
-
-
-<!-- ============================================================
-     ORDER CONFIRMATION
-     ============================================================ -->
 <section class="confirm-page">
 
-  <!-- Success icon & message -->
-  <div class="confirm-hero">
-    <div class="confirm-icon">✓</div>
-    <h1 class="confirm-title">Order Confirmed!</h1>
-    <p class="confirm-sub">
-      Thank you, <strong><?php echo $order['name']; ?></strong>!
-      Your order has been placed successfully.
-    </p>
-    <div class="confirm-order-number">
-      Order #<?php echo $order['number']; ?>
-    </div>
-  </div>
-
-  <div class="confirm-layout">
-
-    <!-- ── Left: order details ── -->
-    <div class="confirm-details">
-
-      <!-- Items ordered -->
-      <div class="confirm-card">
-        <h2 class="confirm-card-title">Items Ordered</h2>
-        <?php foreach ($order['items'] as $item): ?>
-        <div class="confirm-item-row">
-          <div class="confirm-item-name">
-            <?php echo $item['name']; ?>
-            <span class="confirm-item-qty">× <?php echo $item['qty']; ?></span>
-          </div>
-          <div class="confirm-item-price">
-            <?php echo number_format($item['price'] * $item['qty'], 0, ',', ','); ?> L
-          </div>
-        </div>
-        <?php endforeach; ?>
-      </div>
-
-      <!-- Shipping info -->
-      <div class="confirm-card">
-        <h2 class="confirm-card-title">Shipping To</h2>
-        <div class="confirm-info-row">
-          <span class="confirm-info-label">Name</span>
-          <span><?php echo $order['name']; ?></span>
-        </div>
-        <div class="confirm-info-row">
-          <span class="confirm-info-label">Email</span>
-          <span><?php echo $order['email']; ?></span>
-        </div>
-        <div class="confirm-info-row">
-          <span class="confirm-info-label">Address</span>
-          <span><?php echo $order['address']; ?></span>
-        </div>
-        <div class="confirm-info-row">
-          <span class="confirm-info-label">Payment</span>
-          <span><?php echo $order['payment']; ?></span>
-        </div>
-      </div>
-
-    </div><!-- .confirm-details -->
-
-    <!-- ── Right: order summary ── -->
-    <div class="cart-summary">
-
-      <h2 class="summary-title">Order Summary</h2>
-
-      <div class="summary-row">
-        <span>Date</span>
-        <span><?php echo $order['date']; ?></span>
-      </div>
-      <div class="summary-row">
-        <span>Subtotal</span>
-        <span><?php echo number_format($order['subtotal'], 0, ',', ','); ?> L</span>
-      </div>
-      <div class="summary-row">
-        <span>Shipping</span>
-        <span class="summary-free">Free</span>
-      </div>
-
-      <?php if ($order['discount'] > 0): ?>
-      <div class="summary-row">
-        <span>Discount</span>
-        <span style="color: var(--green-deep);">
-          −<?php echo number_format($order['discount'], 0, ',', ','); ?> L
+    <!-- Hero konfirmimi -->
+    <div class="confirm-hero">
+        <div class="confirm-icon">✓</div>
+        <h1 class="confirm-title">Order Confirmed!</h1>
+        <p class="confirm-sub">
+            Thank you for your purchase. Your order has been placed successfully.
+        </p>
+        <span class="confirm-order-number">
+            Order <?php echo $order_number; ?>
         </span>
-      </div>
-      <?php endif; ?>
+    </div>
 
-      <div class="summary-divider"></div>
+    <div class="confirm-layout">
 
-      <div class="summary-row summary-total">
-        <span>Total Paid</span>
-        <span><?php echo number_format($order['total'], 0, ',', ','); ?> L</span>
-      </div>
+        <!-- ── Majtas: detajet ── -->
+        <div class="confirm-details">
 
-      <div class="confirm-actions">
-        <a href="shop.php" class="btn-primary btn-full">Continue Shopping</a>
-        <a href="../index.php" class="cart-continue">← Back to Home</a>
-      </div>
+            <!-- Produktet -->
+            <div class="confirm-card">
+                <h3 class="confirm-card-title">Items Ordered</h3>
+                <?php foreach ($items as $item): ?>
+                <div class="confirm-item-row">
+                    <span>
+                        <?php echo htmlspecialchars($item['product_name']); ?>
+                        <span class="confirm-item-qty">× <?php echo $item['quantity']; ?></span>
+                    </span>
+                    <span class="confirm-item-price">
+                        <?php echo number_format($item['subtotal'], 2); ?> L
+                    </span>
+                </div>
+                <?php endforeach; ?>
+            </div>
 
-    </div><!-- .cart-summary -->
+            <!-- Adresa e dorëzimit -->
+            <div class="confirm-card">
+                <h3 class="confirm-card-title">Shipping Details</h3>
+                <div class="confirm-info-row">
+                    <span class="confirm-info-label">Name</span>
+                    <span><?php echo htmlspecialchars($order['shipping_name']); ?></span>
+                </div>
+                <div class="confirm-info-row">
+                    <span class="confirm-info-label">Email</span>
+                    <span><?php echo htmlspecialchars($order['shipping_email']); ?></span>
+                </div>
+                <div class="confirm-info-row">
+                    <span class="confirm-info-label">Phone</span>
+                    <span><?php echo htmlspecialchars($order['shipping_phone']); ?></span>
+                </div>
+                <div class="confirm-info-row">
+                    <span class="confirm-info-label">Address</span>
+                    <span>
+                        <?php echo htmlspecialchars($order['shipping_address']); ?>,
+                        <?php echo htmlspecialchars($order['shipping_city']); ?>
+                    </span>
+                </div>
+                <div class="confirm-info-row">
+                    <span class="confirm-info-label">Payment</span>
+                    <span><?php echo ucfirst($order['payment_method']); ?></span>
+                </div>
+            </div>
 
-  </div><!-- .confirm-layout -->
+        </div>
+
+        <!-- ── Djathtas: totali ── -->
+        <div class="cart-summary">
+
+            <h2 class="summary-title">Order Summary</h2>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span><?php echo number_format($order['subtotal'], 2); ?> L</span>
+            </div>
+
+            <?php if ($order['discount'] > 0): ?>
+            <div class="summary-row" style="color:#27AE60;">
+                <span>
+                    Discount
+                    <?php if ($order['coupon_code']): ?>
+                        (<?php echo htmlspecialchars($order['coupon_code']); ?>)
+                    <?php endif; ?>
+                </span>
+                <span>−<?php echo number_format($order['discount'], 2); ?> L</span>
+            </div>
+            <?php endif; ?>
+
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span class="summary-free">Free</span>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-row summary-total">
+                <span>Total Paid</span>
+                <span><?php echo number_format($order['total'], 2); ?> L</span>
+            </div>
+
+            <!-- Statusi i porosisë -->
+            <div style="margin-top:20px; padding:14px 20px;
+                        background:rgba(91,175,201,0.08);
+                        border-radius:12px; text-align:center;">
+                <p style="font-size:12px; color:var(--ink-soft);
+                           letter-spacing:0.1em; text-transform:uppercase;
+                           margin-bottom:6px;">Order Status</p>
+                <span class="order-status order-status--<?php echo $order['status']; ?>">
+                    <?php echo ucfirst($order['status']); ?>
+                </span>
+            </div>
+
+            <div class="confirm-actions">
+                <?php if (isLoggedIn()): ?>
+                <a href="/cleare/pages/profile.php#orders" class="btn-primary btn-full"
+                   style="margin-top:20px;">
+                    View My Orders
+                </a>
+                <?php endif; ?>
+                <a href="/cleare/pages/shop.php" class="btn-outline btn-full"
+                   style="margin-top:12px; justify-content:center;">
+                    Continue Shopping
+                </a>
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
-
-<!-- FOOTER -->
 <?php include('../includes/footer.php'); ?>
-
-
 <?php include(__DIR__ . '/../includes/nav-js.php'); ?>
 
 </body>
