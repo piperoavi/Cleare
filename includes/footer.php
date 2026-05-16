@@ -57,3 +57,29 @@
 </div>
 
 </footer>
+<?php if (!isset($_COOKIE['cleare_cookie_consent'])): ?>
+    <div id="cookie-consent" class="cookie-consent show">
+        <p class="cookie-consent-text">
+            <strong>Cookies Notice:</strong>
+            We use cookies to improve your browsing experience, remember preferences,
+            and analyze website usage. By clicking Accept, you agree to our cookie policy.
+            <a href="/cleare/pages/terms.php">Learn more</a>
+        </p>
+
+        <div class="cookie-consent-actions">
+            <form method="POST" action="/cleare/actions/cookie-consent.php">
+                <input type="hidden" name="choice" value="declined">
+                <button type="submit" class="cookie-btn cookie-decline">
+                    Decline
+                </button>
+            </form>
+
+            <form method="POST" action="/cleare/actions/cookie-consent.php">
+                <input type="hidden" name="choice" value="accepted">
+                <button type="submit" class="cookie-btn cookie-accept">
+                    Accept
+                </button>
+            </form>
+        </div>
+    </div>
+<?php endif; ?>
