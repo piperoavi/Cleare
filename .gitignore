@@ -1,2 +1,4 @@
 includes/db.php
 test_db.php
+includes/paypal.php
+includes/stripe.php
