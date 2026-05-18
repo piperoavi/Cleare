@@ -14,6 +14,7 @@
    10. Faqja Shop (shop.php)
    11. Faqja e produktit (product.php)
    12. Responsive (tablet & mobile)
+   13. Cookies
    ============================================================ */
 
 
@@ -1248,4 +1249,175 @@ footer::after {
   .filter-sep { display:none; }
   .shop-filters { gap:8px; }
   .custom-select-btn { min-width:120px; font-size:11px; padding:9px 14px 9px 14px; }
+}
+@media (max-width: 768px) {
+    .shop-page {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .shop-filters {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px;
+        margin-bottom: 28px;
+        border-radius: 22px;
+        background: #ffffff;
+        box-shadow: 0 14px 35px rgba(30, 42, 46, 0.08);
+        border: 1px solid rgba(91, 175, 201, 0.14);
+    }
+
+    .shop-filters > .filter-btn {
+        width: 100%;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .filter-sep {
+        display: none;
+    }
+
+    .shop-dropdowns-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .custom-select {
+        width: 100%;
+    }
+
+    .custom-select-btn {
+        width: 100%;
+        min-width: 100%;
+        min-height: 44px;
+        justify-content: space-between;
+    }
+
+    .custom-options {
+        position: static;
+        width: 100%;
+        margin-top: 6px;
+        border-radius: 16px;
+        box-shadow: none;
+        border: 1px solid rgba(91, 175, 201, 0.25);
+    }
+
+    .shop-filter-apply,
+    .filter-btn--reset {
+        width: 100%;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .products-grid.shop-products-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+}
+
+/*Cookies*/
+.cookie-consent {
+    position: fixed !important;
+    left: 24px !important;
+    right: 24px !important;
+    bottom: 24px !important;
+    background: #ffffff !important;
+    color: #2f2f2f !important;
+    padding: 18px 20px !important;
+    border-radius: 18px !important;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18) !important;
+    z-index: 99999 !important;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    border: 1px solid rgba(217, 167, 167, 0.35);
+    max-width: calc(100% - 48px);
+}
+
+.cookie-consent.show {
+    display: flex !important;
+}
+
+.cookie-consent-text {
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+}
+
+.cookie-consent-text strong {
+    color: #c98282 !important;
+}
+
+.cookie-consent-text a {
+    color: #c98282 !important;
+    text-decoration: underline;
+}
+
+.cookie-consent-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.cookie-btn {
+    border: none !important;
+    padding: 10px 18px !important;
+    border-radius: 999px !important;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.cookie-accept {
+    background: #d9a7a7 !important;
+    color: #ffffff !important;
+}
+
+.cookie-accept:hover {
+    background: #c98282 !important;
+}
+
+.cookie-decline {
+    background: #f4eeee !important;
+    color: #7a5555 !important;
+}
+
+.cookie-decline:hover {
+    background: #eadada !important;
+}
+
+@media (max-width: 768px) {
+    .cookie-consent {
+        left: 14px !important;
+        right: 14px !important;
+        bottom: 14px !important;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px !important;
+        max-width: calc(100% - 28px);
+    }
+
+    .cookie-consent-actions {
+        width: 100%;
+    }
+
+    .cookie-btn {
+        width: 100%;
+    }
+}
+.cookie-consent-actions form {
+    margin: 0;
 }
