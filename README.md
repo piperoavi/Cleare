@@ -1,6 +1,6 @@
 <div align="center">
 
-# ✨ Clearè Skincare Shop
+#  Clearè Skincare Shop
 
 **Mini E-Commerce Kozmetike — Projekt Akademik**
 
@@ -18,7 +18,7 @@
 
 ---
 
-## 📋 Tabela e Përmbajtjes
+##  Tabela e Përmbajtjes
 
 - [Pamje e Përgjithshme](#-pamje-e-përgjithshme)
 - [Tech Stack](#-tech-stack)
@@ -36,7 +36,7 @@
 
 ---
 
-## 🌿 Pamje e Përgjithshme
+##  Pamje e Përgjithshme
 
 **Clearè Skincare Shop** është një platformë e-commerce e plotë për produkte kozmetike dhe kujdesit të lëkurës.  
 Projekti mbështet dy role kryesore — **customer** dhe **admin** — me flukse të ndara dhe të sigurta.
@@ -53,7 +53,7 @@ Projekti mbështet dy role kryesore — **customer** dhe **admin** — me flukse
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 | Teknologjia | Versioni | Përdorimi |
 |-------------|----------|-----------|
@@ -69,7 +69,7 @@ Projekti mbështet dy role kryesore — **customer** dhe **admin** — me flukse
 
 ---
 
-## 📁 Struktura e Projektit
+##  Struktura e Projektit
 
 ```
 Cleare/
@@ -122,7 +122,7 @@ Cleare/
 
 ---
 
-## 🚀 Instalimi
+##  Instalimi
 
 ### Kërkesat paraprake
 
@@ -177,7 +177,7 @@ Krijo fajllin `includes/db.php` (dërgohet veçmas nëpërmjet Discord, nuk gjen
 ```php
 <?php
 $host   = 'localhost';
-$dbname = 'Cleare';          // ⚠️ C e madhe — case-sensitive!
+$dbname = 'Cleare';          //  C e madhe — case-sensitive!
 $user   = 'root';
 $pass   = '';                // Fjalëkalimi i MySQL-it tënd
 
@@ -213,7 +213,7 @@ http://localhost/Cleare/
 
 ## 🗄 Konfigurimi i Databazës
 
-> ⚠️ **E rëndësishme:** Emri i databazës është `Cleare` me **C të madhe**. MySQL në Windows zakonisht është case-insensitive, por MySQL 8 në Linux/Mac është case-sensitive. Gjithmonë përdor `Cleare`.
+>  **E rëndësishme:** Emri i databazës është `Cleare` me **C të madhe**. MySQL në Windows zakonisht është case-insensitive, por MySQL 8 në Linux/Mac është case-sensitive. Gjithmonë përdor `Cleare`.
 
 ### Kredencialet e paracaktuara
 
@@ -226,9 +226,9 @@ http://localhost/Cleare/
 
 ---
 
-## ⚙️ Funksionalitetet
+##  Funksionalitetet
 
-### 🔐 Autentikimi
+###  Autentikimi
 
 | Funksioni | Përshkrimi |
 |-----------|------------|
@@ -248,7 +248,7 @@ requireAdmin();     // Vetëm për faqe admin
 
 ---
 
-### 🛍️ Shporta (Cart)
+###  Shporta (Cart)
 
 Shporta është **session-based** dhe funksionon si për vizitorët ashtu edhe për klientët e regjistruar.
 
@@ -267,7 +267,7 @@ Shporta është **session-based** dhe funksionon si për vizitorët ashtu edhe p
 
 ---
 
-### 💳 Checkout
+###  Checkout
 
 Procesi i blerjes:
 
@@ -282,7 +282,7 @@ Numri i porosisë shfaqet si: `CLR-00001`, `CLR-00042` (str_pad me 5 shifra).
 
 ---
 
-### 👤 Profili i Klientit
+###  Profili i Klientit
 
 - Ndryshim të dhënash personale: emër, telefon, adresë, qytet, gjini, datëlindje
 - Historiku i porosive me statusin (pending → delivered)
@@ -292,7 +292,7 @@ Numri i porosisë shfaqet si: `CLR-00001`, `CLR-00042` (str_pad me 5 shifra).
 
 ---
 
-## 🔧 Paneli Administrativ
+##  Paneli Administrativ
 
 > Aksesi kërkon `role_id = 1`. Çdo faqe fillon me `requireAdmin()`.
 
@@ -322,7 +322,7 @@ Numri i porosisë shfaqet si: `CLR-00001`, `CLR-00042` (str_pad me 5 shifra).
 - Shto kupon të ri (percent / fixed, me datë skadence)
 - Toggle active/inactive me një klik
 
-> ⚠️ **Bug i njohur:** Sidebar i admin panel nuk shfaqet saktë për shkak të konfliktit CSS me `style.css`. Është në listën e rregullimeve.
+>  **Bug i njohur:** Sidebar i admin panel nuk shfaqet saktë për shkak të konfliktit CSS me `style.css`. Është në listën e rregullimeve.
 
 ---
 
@@ -370,7 +370,7 @@ roles ──< users ──< orders ──< order_items >── products
 
 ---
 
-## 🎟 Kuponët e Zbritjes
+##  Kuponët e Zbritjes
 
 | Kodi | Tipi | Zbritja | Aplikohet te | Shënime |
 |------|------|---------|--------------|---------|
@@ -383,7 +383,7 @@ roles ──< users ──< orders ──< order_items >── products
 
 ---
 
-## 🎨 Paleta e Ngjyrave & Dizajni
+##  Paleta e Ngjyrave & Dizajni
 
 Stilizimi përdor **CSS Custom Properties** (variabla) të deklaruara te `:root` në `style.css`:
 
@@ -411,7 +411,7 @@ Stilizimi përdor **CSS Custom Properties** (variabla) të deklaruara te `:root`
 
 ---
 
-## 🌿 Git Workflow
+##  Git Workflow
 
 ### Struktura e branches
 
@@ -428,7 +428,7 @@ main
 ### Rregullat e detyrueshme
 
 ```bash
-# ✅ E saktë — fluksi i duhur
+#  E saktë — fluksi i duhur
 git checkout feature/emri
 # ... bën ndryshime ...
 git add .
@@ -437,7 +437,7 @@ git push origin feature/emri
 # Hap PR: feature/emri → develop
 # Pas review: develop → main (vetëm nga project lead)
 
-# ❌ Kurrë — ndalohet absolutisht
+#  Kurrë — ndalohet absolutisht
 # PR direkt nga feature → main
 # PR main → develop
 # PR develop → feature (merge lokalisht, jo me PR)
@@ -464,21 +464,21 @@ git push origin feature/emri
 
 ---
 
-## 👥 Ekipi
+##  Ekipi
 
 | Anëtar | Roli | Branch | Kontributi kryesor |
 |--------|------|--------|--------------------|
 | **Fjona** | Project Lead | `feature/fjona` | Cart, Checkout, Profile, Order Confirmation |
-| **Iva** | Frontend Developer | `feature/iva` | UI/UX Design, HTML/CSS i të gjitha faqeve ✅ |
+| **Iva** | Frontend Developer | `feature/iva` | UI/UX Design, HTML/CSS i të gjitha faqeve  |
 | **Elsa** | QA & DevOps | `feature/elsa` | Admin Panel, Testing, README, Deployment |
 | **Endri** | Backend Developer | `feature/endri` | Produktet nga DB (`products_db.php`, `shop.php`) |
 | **Donald** | Database & Auth | `feature/donald` | Skema DB, Autentikimi, PDO sessions |
 
 ---
 
-## 📊 Statusi i Projektit
+##  Statusi i Projektit
 
-### ✅ Të Gatshme
+###  Të Gatshme
 
 - [x] Autentikimi i plotë (login, register, logout, session)
 - [x] Shfletimi i produkteve me filtra & kërkim
@@ -487,13 +487,13 @@ git push origin feature/emri
 - [x] Konfirmimi i porosisë (CLR-XXXXX)
 - [x] Profili i klientit me historik & pikë
 - [x] Panel Administrativ (dashboard, produkte, porosi, kupona)
-- [x] Frontend/UI — të gjitha faqet ✅
+- [x] Frontend/UI — të gjitha faqet 
 
-### ⏳ Në Progres / Mbeten
+###  Në Progres / Mbeten
 
 - [ ] **Imazhet e produkteve** — te `assets/images/` me emrat saktë (Iva)
 - [ ] **Fix sidebar admin** — konflikt CSS me `style.css` (Elsa)
-- [ ] **README.md** — ky dokument (Elsa) ✅
+- [ ] **README.md** — ky dokument (Elsa) 
 - [ ] **Testim final end-to-end** (Elsa)
 - [ ] **Dorëzim ZIP** (Elsa)
 - [ ] Deploy opsionale — InfinityFree / 000webhost + FileZilla FTP
@@ -501,7 +501,7 @@ git push origin feature/emri
 
 ---
 
-## 🔒 Shënime të Sigurisë
+##  Shënime të Sigurisë
 
 - Fjalëkalimet ruhen me `password_hash()` (bcrypt, cost 12)
 - Të gjithë query-t përdorin **PDO prepared statements** (mbrojtje nga SQL Injection)
@@ -511,7 +511,7 @@ git push origin feature/emri
 
 ---
 
-## 📦 Shënime Teknike
+##  Shënime Teknike
 
 | Çështja | Detaji |
 |---------|--------|
