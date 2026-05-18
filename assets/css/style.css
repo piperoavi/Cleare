@@ -1499,3 +1499,22 @@ footer::after {
         color: var(--sky-deep);
     }
 }
+
+/* ── Cart checkbox select ── */
+.cart-select {
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+    cursor: pointer;
+}
+.cart-item-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--sky-deep);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+#btn-checkout:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
