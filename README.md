@@ -478,7 +478,7 @@ git push origin feature/emri
 
 ##  Statusi i Projektit
 
-###  Të Kryera
+###  Të Gatshme
 
 - [x] Autentikimi i plotë (login, register, logout, session)
 - [x] Shfletimi i produkteve me filtra & kërkim
@@ -489,15 +489,12 @@ git push origin feature/emri
 - [x] Panel Administrativ (dashboard, produkte, porosi, kupona)
 - [x] Frontend/UI — të gjitha faqet 
 - [x] **Imazhet e produkteve** — te `assets/images/` me emrat saktë (Iva)
-- [x] **Fix sidebar admin** — konflikt CSS me `style.css` (Elsa)
-- [x] **Testim final end-to-end** (Elsa)
+- [x] **Fix sidebar admin** — konflikt CSS me `style.css` (Elsa) 
 - [x] Stripe/PayPal real integration *(opsionale, +5 pikë bonus)*
-- [x] Chatbot
 
 ###  Në Progres / Mbeten
 
 - [ ] Deploy opsionale — InfinityFree / 000webhost + FileZilla FTP
-
 ---
 
 ##  Shënime të Sigurisë
