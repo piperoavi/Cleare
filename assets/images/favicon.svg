@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <circle cx="120" cy="120" r="120" fill="#5BAFC9"/>
+  <circle cx="120" cy="120" r="108" fill="#A8D8EA"/>
+  <circle cx="120" cy="120" r="88" fill="#F0F7F4"/>
+  <ellipse cx="120" cy="52" rx="16" ry="26" fill="#6FAE8E" transform="rotate(-15 120 52)"/>
+  <ellipse cx="120" cy="52" rx="16" ry="26" fill="#B8D8C8" transform="rotate(15 120 52)" opacity="0.7"/>
+  <text x="120" y="140"
+    font-family="Georgia, serif"
+    font-size="88" font-weight="400"
+    fill="#1E2A2E" text-anchor="middle">C</text>
+  <circle cx="152" cy="68" r="6" fill="#5BAFC9"/>
+</svg>
