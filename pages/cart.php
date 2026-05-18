@@ -158,8 +158,12 @@ if (isset($_GET['msg'])) {
     <div class="cart-items">
 
       <?php foreach ($cart_items as $item): ?>
-      <div class="cart-row">
-
+<div class="cart-row">
+    <label class="cart-select">
+        <input type="checkbox" name="selected_items[]"
+               value="<?php echo $item['id']; ?>"
+               class="cart-item-checkbox" checked>
+    </label>
         <div class="cart-img">
           <img src="../assets/images/<?php echo htmlspecialchars($item['image']); ?>"
                alt="<?php echo htmlspecialchars($item['name']); ?>">
@@ -210,7 +214,7 @@ if (isset($_GET['msg'])) {
 
       <div class="summary-row">
         <span>Subtotal</span>
-        <span><?php echo number_format($subtotal, 2); ?> L</span>
+        <span id="summary-subtotal"><?php echo number_format($subtotal, 2); ?> L</span>
       </div>
 
       <?php if ($discount > 0): ?>
@@ -259,14 +263,18 @@ if (isset($_GET['msg'])) {
 
       <div class="summary-row summary-total">
         <span>Total</span>
-        <span><?php echo number_format($total, 2); ?> L</span>
+        <span id="summary-total"><?php echo number_format($total, 2); ?> L</span>
       </div>
 
-      <a href="checkout.php" class="btn-primary btn-full">
+<form method="POST" action="checkout.php" id="checkout-form">
+    <div id="selected-inputs"></div>
+    <button type="submit" class="btn-primary btn-full" id="btn-checkout">
         Proceed to Checkout
-      </a>
+    </button>
+</form>
 
-      <a href="shop.php" class="cart-continue">← Continue Shopping</a>
+<a href="shop.php" class="cart-continue">← Continue Shopping</a>
+
 
     </div>
 
@@ -287,6 +295,47 @@ if (isset($_GET['msg'])) {
 
 <?php include('../includes/footer.php'); ?>
 <?php include(__DIR__ . '/../includes/nav-js.php'); ?>
+
+<script>
+(function () {
+    const checkboxes  = document.querySelectorAll('.cart-item-checkbox');
+    const container   = document.getElementById('selected-inputs');
+    const subtotalEl  = document.getElementById('summary-subtotal');
+    const totalEl     = document.getElementById('summary-total');
+    const discount    = <?php echo $discount; ?>;
+
+    const prices = {};
+    checkboxes.forEach(cb => {
+        const row      = cb.closest('.cart-row');
+        const priceStr = row.querySelector('.cart-line-total').textContent
+                            .replace(/[^0-9.]/g, '');
+        prices[cb.value] = parseFloat(priceStr) || 0;
+    });
+
+    function update() {
+        container.innerHTML = '';
+        let subtotal = 0;
+
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                subtotal += prices[cb.value];
+                const inp = document.createElement('input');
+                inp.type  = 'hidden';
+                inp.name  = 'selected_items[]';
+                inp.value = cb.value;
+                container.appendChild(inp);
+            }
+        });
+
+        const total = Math.max(0, subtotal - discount);
+        subtotalEl.textContent = subtotal.toFixed(2) + ' L';
+        totalEl.textContent    = total.toFixed(2) + ' L';
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', update));
+    update();
+})();
+</script>
 
 </body>
 </html>

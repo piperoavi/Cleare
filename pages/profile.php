@@ -19,7 +19,7 @@ $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 
 // Merr historikun e porosive
-$stmt = $pdo->prepare("
+/*$stmt = $pdo->prepare("
     SELECT o.*, 
            COUNT(oi.id) AS item_count
     FROM orders o
@@ -29,7 +29,44 @@ $stmt = $pdo->prepare("
     ORDER BY o.created_at DESC
 ");
 $stmt->execute([$user_id]);
-$orders = $stmt->fetchAll();
+$orders = $stmt->fetchAll();*/
+$stmt = $pdo->prepare("
+    SELECT 
+        o.id, o.total, o.status, o.payment_method, o.created_at,
+        oi.product_name, oi.quantity, oi.price, oi.subtotal,
+        p.image, p.slug
+    FROM orders o
+    JOIN order_items oi ON oi.order_id = o.id
+    LEFT JOIN products p ON p.id = oi.product_id
+    WHERE o.user_id = ?
+    ORDER BY o.created_at DESC, o.id
+");
+$stmt->execute([$user_id]);
+$rows = $stmt->fetchAll();
+
+// Gropo items sipas order_id
+$orders = [];
+foreach ($rows as $row) {
+    $oid = $row['id'];
+    if (!isset($orders[$oid])) {
+        $orders[$oid] = [
+            'id'             => $oid,
+            'total'          => $row['total'],
+            'status'         => $row['status'],
+            'payment_method' => $row['payment_method'],
+            'created_at'     => $row['created_at'],
+            'items'          => []
+        ];
+    }
+    $orders[$oid]['items'][] = [
+        'product_name' => $row['product_name'],
+        'quantity'     => $row['quantity'],
+        'price'        => $row['price'],
+        'subtotal'     => $row['subtotal'],
+        'image'        => $row['image'],
+        'slug'         => $row['slug']
+    ];
+}
 
 // Merr pikët totale
 $stmt = $pdo->prepare("
@@ -115,7 +152,7 @@ $page_title = "My Profile — Clearè";
                 ⭐ <?php echo $user['points']; ?> points
             </div>
             <nav class="profile-nav">
-                <a href="#personal" class="profile-nav-link active">Personal Info</a>
+                <a href="#personal" class="profile-nav-link">Personal Info</a>
                 <a href="#orders"   class="profile-nav-link">My Orders</a>
                 <a href="#coupons"  class="profile-nav-link">Coupons Used</a>
                 <a href="#points"   class="profile-nav-link">Points History</a>
@@ -205,15 +242,48 @@ $page_title = "My Profile — Clearè";
                         <?php foreach ($orders as $order): ?>
                         <div class="order-card">
                             <div class="order-card-header">
-                                <span class="order-id">Order #CLR-<?php echo str_pad($order['id'], 5, '0', STR_PAD_LEFT); ?></span>
+                                <span class="order-id">
+                                    Order #CLR-<?php echo str_pad($order['id'], 5, '0', STR_PAD_LEFT); ?>
+                                </span>
+                                <span class="order-date">
+                                    <?php echo date('d M Y', strtotime($order['created_at'])); ?>
+                                </span>
                                 <span class="order-status order-status--<?php echo $order['status']; ?>">
                                     <?php echo ucfirst($order['status']); ?>
                                 </span>
                             </div>
-                            <div class="order-card-body">
-                                <span><?php echo $order['item_count']; ?> item(s)</span>
-                                <span><?php echo number_format($order['total'], 2); ?> L</span>
-                                <span><?php echo date('d M Y', strtotime($order['created_at'])); ?></span>
+
+                            <div class="order-card-items">
+                                <?php foreach ($order['items'] as $item): ?>
+                                <div class="order-item">
+                                    <?php if (!empty($item['image'])): ?>
+                                    <img
+                                        src="../assets/images/<?php echo htmlspecialchars($item['image']); ?>"
+                                        alt="<?php echo htmlspecialchars($item['product_name']); ?>"
+                                        class="order-item-img"
+                                        onerror="this.style.display='none'"
+                                    >
+                                    <?php endif; ?>
+                                    <div class="order-item-info">
+                                        <span class="order-item-name">
+                                            <?php echo htmlspecialchars($item['product_name']); ?>
+                                        </span>
+                                        <span class="order-item-qty">Qty: <?php echo $item['quantity']; ?></span>
+                                    </div>
+                                    <span class="order-item-price">
+                                        <?php echo number_format($item['subtotal'], 2); ?> L
+                                    </span>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+
+                            <div class="order-card-footer">
+                                <span class="order-payment">
+                                    <?php echo ucfirst($order['payment_method']); ?>
+                                </span>
+                                <span class="order-total">
+                                    Total: <strong><?php echo number_format($order['total'], 2); ?> L</strong>
+                                </span>
                             </div>
                         </div>
                         <?php endforeach; ?>

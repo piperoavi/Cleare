@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/cart_functions.php';
+require_once __DIR__ . '/auth.php';
 $cart_count = cart_count();
 ?>
 
@@ -9,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 ?>
 <nav>
-  <a href="/cleare/index.php" class="nav-logo">Clear<span>è</span></a>
+  <a href="<?php echo isAdmin() ? '/cleare/pages/admin/index.php' : '/cleare/index.php'; ?>" class="nav-logo">Clear<span>è</span></a>
 
   <ul class="nav-links">
     <li><a href="/cleare/pages/shop.php?cat=skincare">Skincare</a></li>
@@ -27,7 +28,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
   <div class="nav-actions">
     <?php if (isset($_SESSION['user_id'])): ?>
-    <a href="/cleare/pages/profile.php" class="nav-icon" title="<?php echo htmlspecialchars($_SESSION['user_name']); ?>"> 👤 </a>
+    <a href="<?php echo isAdmin() ? '/cleare/pages/admin/index.php' : '/cleare/pages/profile.php'; ?>" class="nav-icon" title="<?php echo htmlspecialchars($_SESSION['user_name']); ?>"> <?php echo isAdmin() ? '⚙️' : '👤'; ?> </a>
     <?php else: ?>
         <a href="/cleare/pages/login.php" class="nav-icon" title="Account">👤</a>
     <?php endif; ?>
@@ -56,7 +57,10 @@ if (session_status() === PHP_SESSION_NONE) {
     <li><a href="/cleare/pages/shop.php?cat=hair">Hair</a></li>
     <li><a href="/cleare/pages/shop.php?cat=body">Body</a></li>
     <?php if (isset($_SESSION['user_id'])): ?>
-        <li><a href="/cleare/pages/logout.php">Logout</a></li>
+    <?php if (isAdmin()): ?>
+        <li><a href="/cleare/pages/admin/index.php">Admin Panel</a></li>
+    <?php endif; ?>
+    <li><a href="/cleare/pages/logout.php">Logout</a></li>
     <?php else: ?>
         <li><a href="/cleare/pages/login.php">Account</a></li>
     <?php endif; ?>

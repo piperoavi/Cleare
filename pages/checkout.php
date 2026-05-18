@@ -7,18 +7,38 @@ require_once __DIR__ . '/../includes/auth.php';
 $page_title = "Checkout — Clearè";
 
 // Nëse cart-i është bosh ridrejto
-$cart_items = cart_get_items($pdo);
+$all_items = cart_get_items($pdo);
+if (empty($all_items)) {
+    header('Location: cart.php');
+    exit;
+}
+
+// Filtro sipas selected_items
+if (!empty($_POST['selected_items'])) {
+    $selected_ids = array_map('intval', $_POST['selected_items']);
+    $_SESSION['checkout_selected'] = $selected_ids;
+}
+
+if (!empty($_SESSION['checkout_selected'])) {
+    $selected_ids = $_SESSION['checkout_selected'];
+    $cart_items   = array_values(array_filter(
+        $all_items,
+        fn($item) => in_array((int)$item['id'], $selected_ids)
+    ));
+} else {
+    $cart_items = $all_items;
+}
+
 if (empty($cart_items)) {
     header('Location: cart.php');
     exit;
 }
 
-$subtotal        = cart_subtotal($cart_items);
-$discount        = $_SESSION['coupon_discount'] ?? 0;
-$coupon_id       = $_SESSION['coupon_id']       ?? null;
-$total           = $subtotal - $discount;
-$errors          = [];
-$success         = false;
+$subtotal  = cart_subtotal($cart_items);
+$discount  = $_SESSION['coupon_discount'] ?? 0;
+$coupon_id = $_SESSION['coupon_id']       ?? null;
+$total     = $subtotal - $discount;
+$errors    = [];
 
 // Pre-fill nga sesioni nëse është i loguar
 $prefill = [];
@@ -35,7 +55,7 @@ if (isLoggedIn()) {
     ];
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['shipping_name'])) {
 
     $name    = trim($_POST['shipping_name']    ?? '');
     $email   = trim($_POST['shipping_email']   ?? '');
@@ -94,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Zvogëlo stokun
                 $pdo->prepare("
                     UPDATE products SET stock = stock - ? WHERE id = ?
-                ")-> execute([$item['quantity'], $item['id']]);
+                ")->execute([$item['quantity'], $item['id']]);
             }
 
             // 3. Regjistro coupon_usage nëse ka kupon
@@ -124,17 +144,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $pdo->commit();
 
-            // 5. Pastro cart dhe kuponin
+            // 5. Pastro cart dhe session
             cart_clear();
             unset(
                 $_SESSION['coupon_code'],
                 $_SESSION['coupon_id'],
-                $_SESSION['coupon_discount']
+                $_SESSION['coupon_discount'],
+                $_SESSION['checkout_selected']
             );
-
-            // 6. Ridrejto te konfirmimi
-            //header('Location: order-confirm.php?order_id=' . $order_id);
-            //exit;
 
             // 6. Ridrejto sipas metodës së pagesës
             if ($payment === 'paypal') {
@@ -176,8 +193,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
-$page_title = "Checkout — Clearè";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -229,6 +244,13 @@ $page_title = "Checkout — Clearè";
 
         <!-- ── Left: formulari ── -->
         <form class="checkout-form" method="POST" action="checkout.php">
+
+            <!-- Kalon selected items nga session -->
+            <?php if (!empty($_SESSION['checkout_selected'])): ?>
+                <?php foreach ($_SESSION['checkout_selected'] as $sid): ?>
+                    <input type="hidden" name="selected_items[]" value="<?php echo (int)$sid; ?>">
+                <?php endforeach; ?>
+            <?php endif; ?>
 
             <!-- Adresa e dorëzimit -->
             <div class="checkout-section-title">Shipping Information</div>
