@@ -1,5 +1,10 @@
 <?php
 $page_title = "Clearè — The clearest in sight.";
+
+require_once __DIR__ . '/includes/products_db.php';
+
+$hero_product = getProductById(5);
+$featured = getFeaturedProducts(4);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +38,7 @@ $page_title = "Clearè — The clearest in sight.";
     <div class="hero-eyebrow">Clean Beauty</div>
 
     <h1 class="hero-title">
-      The clearest,<br>
+      The clearest<br>
       <em>in sight.</em>
     </h1>
 
@@ -49,25 +54,41 @@ $page_title = "Clearè — The clearest in sight.";
   </div>
 
   <!-- Right side: floating product card -->
-  <div class="hero-visual">
-    <div class="hero-product-card">
-      <span class="product-emoji">🧴</span>
-      <div class="product-label">Bestseller</div>
-      <div class="product-name-card">The Ordinary Serum</div>
-      <div class="product-price-card">3,200 L</div>
-      <a href="pages/product.php?id=5" class="btn-card">View Product</a>
+<div class="hero-visual">
+    <?php if ($hero_product): ?>
+        <div class="hero-product-card">
+            <img
+                class="product-picture"
+                src="assets/images/<?php echo htmlspecialchars($hero_product['image']); ?>"
+                alt="<?php echo htmlspecialchars($hero_product['name']); ?>"
+            >
+
+            <div class="product-label">Bestseller</div>
+
+            <div class="product-name-card">
+                <?php echo htmlspecialchars($hero_product['name']); ?>
+            </div>
+
+            <div class="product-price-card">
+                €<?php echo number_format($hero_product['price'], 2); ?>
+            </div>
+
+            <a href="pages/product.php?id=<?php echo $hero_product['id']; ?>" class="btn-card">
+                View Product
+            </a>
+        </div>
+    <?php endif; ?>
+
+    <div class="float-badge float-badge-1">
+        <div class="float-dot"></div>
+        SPF Protection
     </div>
 
-    <!-- Small floating badges -->
-    <div class="float-badge float-badge-1">
-      <div class="float-dot"></div>
-      SPF Protection
-    </div>
     <div class="float-badge float-badge-2">
-      <div class="float-dot"></div>
-      Cruelty Free
+        <div class="float-dot"></div>
+        Cruelty Free
     </div>
-  </div>
+</div>
 
 </section>
 
@@ -138,10 +159,7 @@ $page_title = "Clearè — The clearest in sight.";
     <h2 class="section-title">Bestsellers</h2>
   </div>
 
-  <?php
-require_once __DIR__ . '/includes/products_db.php';
-$featured = getFeaturedProducts(4);
-?>
+
 
 <div class="products-grid">
 <?php foreach ($featured as $product): ?>
@@ -155,7 +173,7 @@ $featured = getFeaturedProducts(4);
             <div class="product-name"><?php echo htmlspecialchars($product['name']); ?></div>
             <div class="product-footer">
                 <span class="product-price">
-                    <?php echo number_format($product['price'], 2); ?> L
+                  €<?php echo number_format($product['price'], 2); ?> 
                 </span>
                 <button class="btn-add" onclick="event.preventDefault()">+</button>
             </div>
