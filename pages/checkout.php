@@ -133,8 +133,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             // 6. Ridrejto te konfirmimi
-            header('Location: order-confirm.php?order_id=' . $order_id);
-            exit;
+            //header('Location: order-confirm.php?order_id=' . $order_id);
+            //exit;
+
+            // 6. Ridrejto sipas metodës së pagesës
+            if ($payment === 'paypal') {
+                require_once __DIR__ . '/../includes/paypal.php';
+                $total_eur    = max(round($total / 110, 2), 0.01);
+                $approval_url = paypal_create_order($total_eur, $order_id);
+
+                if ($approval_url) {
+                    header('Location: ' . $approval_url);
+                    exit;
+                } else {
+                    $pdo->prepare("DELETE FROM orders WHERE id = ? AND payment_status = 'unpaid'")
+                        ->execute([$order_id]);
+                    $errors[] = 'PayPal is unavailable. Please choose another payment method.';
+                }
+
+            } elseif ($payment === 'stripe') {
+                require_once __DIR__ . '/../includes/stripe.php';
+                $total_eur    = max(round($total / 110, 2), 0.50);
+                $checkout_url = stripe_create_session($total_eur, $order_id);
+
+                if ($checkout_url) {
+                    header('Location: ' . $checkout_url);
+                    exit;
+                } else {
+                    $pdo->prepare("DELETE FROM orders WHERE id = ? AND payment_status = 'unpaid'")
+                        ->execute([$order_id]);
+                    $errors[] = 'Stripe is unavailable. Please choose another payment method.';
+                }
+
+            } else {
+                header('Location: order-confirm.php?order_id=' . $order_id);
+                exit;
+            }
 
         } catch (Exception $e) {
             $pdo->rollBack();
