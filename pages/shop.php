@@ -175,7 +175,7 @@ $filtered_products = getProducts($selected_category, $search_query, $selected_so
                         <div class="product-name"><?php echo htmlspecialchars($product['name']); ?></div>
                         <div class="product-footer">
                             <span class="product-price"><?php echo number_format($product['price'], 2); ?> L</span>
-                            <form action="/cleare/actions/add-to-cart.php" method="POST" style="margin:0">
+                            <form action="/cleare/actions/add-to-cart.php" method="POST" style="margin:0" data-ajax="true">
                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                 <input type="hidden" name="quantity"   value="1">
                                 <input type="hidden" name="redirect"   value="/cleare/pages/shop.php<?php echo isset($_GET['cat']) ? '?cat='.$_GET['cat'] : ''; ?>">
@@ -234,6 +234,43 @@ $filtered_products = getProducts($selected_category, $search_query, $selected_so
 
     document.addEventListener('click', function () {
         selects.forEach(s => s.classList.remove('open'));
+    });
+})();
+
+(function () {
+    document.body.addEventListener('submit', function (e) {
+        const form = e.target.closest('form[data-ajax="true"]');
+        if (!form) return;
+        e.preventDefault();
+
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (!data.success) return;
+
+            // Azhurno badge cart
+            const badge = document.querySelector('.cart-count');
+            if (badge) {
+                badge.textContent = data.cart_count;
+                badge.style.display = data.cart_count > 0 ? 'inline' : 'none';
+            }
+
+            // Feedback vizual te butoni +
+            const btn = form.querySelector('button[type="submit"]');
+            btn.textContent = '✓';
+            btn.disabled = true;
+            btn.style.background = 'var(--green-deep)';
+            setTimeout(() => {
+                btn.textContent = '+';
+                btn.disabled = false;
+                btn.style.background = '';
+            }, 1000);
+        })
+        .catch(err => console.error('Cart error:', err));
     });
 })();
 </script>
