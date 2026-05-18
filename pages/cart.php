@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/cart_functions.php';
 
-$page_title = "Cart — Clearè";
+$page_title = "Cart | Clearè";
 
 // Merr produktet nga session
 $cart_items = cart_get_items($pdo);
@@ -136,6 +136,10 @@ if (isset($_GET['msg'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo $page_title; ?></title>
+  <link rel="icon" type="image/svg+xml" href="/Cleare/assets/images/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/Cleare/assets/images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/Cleare/assets/images/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/Cleare/assets/images/favicon-180.png">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
