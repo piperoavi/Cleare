@@ -177,7 +177,7 @@ if (isset($_GET['msg'])) {
           <div class="cart-cat"><?php echo ucfirst($item['type']); ?></div>
           <div class="cart-name"><?php echo htmlspecialchars($item['name']); ?></div>
           <div class="cart-unit-price">
-            <?php echo number_format($item['price'], 2); ?> L / unit
+            <?php echo number_format($item['price'], 2); ?> € / unit
           </div>
         </div>
 
@@ -197,7 +197,7 @@ if (isset($_GET['msg'])) {
         </form>
 
         <div class="cart-line-total">
-          <?php echo number_format($item['subtotal'], 2); ?> L
+          €<?php echo number_format($item['subtotal'], 2); ?>
         </div>
 
         <!-- Hiq produktin -->
@@ -218,13 +218,13 @@ if (isset($_GET['msg'])) {
 
       <div class="summary-row">
         <span>Subtotal</span>
-        <span id="summary-subtotal"><?php echo number_format($subtotal, 2); ?> L</span>
+        <span id="summary-subtotal">€<?php echo number_format($subtotal, 2); ?></span>
       </div>
 
       <?php if ($discount > 0): ?>
       <div class="summary-row" style="color:#27AE60;">
         <span>Discount (<?php echo htmlspecialchars($coupon_code); ?>)</span>
-        <span>−<?php echo number_format($discount, 2); ?> L</span>
+        <span>−€<?php echo number_format($discount, 2); ?></span>
       </div>
       <?php endif; ?>
 
@@ -267,7 +267,7 @@ if (isset($_GET['msg'])) {
 
       <div class="summary-row summary-total">
         <span>Total</span>
-        <span id="summary-total"><?php echo number_format($total, 2); ?> L</span>
+        <span id="summary-total">€<?php echo number_format($total, 2); ?></span>
       </div>
 
 <form method="POST" action="checkout.php" id="checkout-form">
@@ -332,8 +332,8 @@ if (isset($_GET['msg'])) {
         });
 
         const total = Math.max(0, subtotal - discount);
-        subtotalEl.textContent = subtotal.toFixed(2) + ' L';
-        totalEl.textContent    = total.toFixed(2) + ' L';
+        subtotalEl.textContent = '€' + subtotal.toFixed(2);
+        totalEl.textContent    = '€' + total.toFixed(2);
     }
 
     checkboxes.forEach(cb => cb.addEventListener('change', update));

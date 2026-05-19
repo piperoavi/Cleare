@@ -1,14 +1,14 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /cleare/');
+    header('Location: ../index.php');
     exit;
 }
 
 $choice = $_POST['choice'] ?? '';
 
 if ($choice !== 'accepted' && $choice !== 'declined') {
-    header('Location: /cleare/');
+    header('Location: ../index.php');
     exit;
 }
 
@@ -16,9 +16,9 @@ setcookie(
     'cleare_cookie_consent',
     $choice,
     time() + (365 * 24 * 60 * 60),
-    '/cleare/'
+    '/'
 );
 
-$redirect = $_SERVER['HTTP_REFERER'] ?? '/cleare/';
+$redirect = $_SERVER['HTTP_REFERER'] ?? '../index.php';
 header('Location: ' . $redirect);
 exit;

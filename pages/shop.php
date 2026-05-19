@@ -178,7 +178,7 @@ $filtered_products = getProducts($selected_category, $search_query, $selected_so
                         <div class="product-cat-tag"><?php echo ucfirst($product['type']); ?></div>
                         <div class="product-name"><?php echo htmlspecialchars($product['name']); ?></div>
                         <div class="product-footer">
-                            <span class="product-price"><?php echo number_format($product['price'], 2); ?> L</span>
+                            <span class="product-price">€<?php echo number_format($product['price'], 2); ?></span>
                             <form action="/cleare/actions/add-to-cart.php" method="POST" style="margin:0" data-ajax="true">
                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                 <input type="hidden" name="quantity"   value="1">

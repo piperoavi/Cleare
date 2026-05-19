@@ -381,7 +381,7 @@ if (!empty($_SESSION['checkout_selected'])) {
                     </div>
                 </div>
                 <div class="checkout-item-price">
-                    <?php echo number_format($item['subtotal'], 2); ?> L
+                    €<?php echo number_format($item['subtotal'], 2); ?> 
                 </div>
             </div>
             <?php endforeach; ?>
@@ -390,13 +390,13 @@ if (!empty($_SESSION['checkout_selected'])) {
 
             <div class="summary-row">
                 <span>Subtotal</span>
-                <span><?php echo number_format($subtotal, 2); ?> L</span>
+                <span>€<?php echo number_format($subtotal, 2); ?></span>
             </div>
 
             <?php if ($discount > 0): ?>
             <div class="summary-row" style="color:#27AE60;">
                 <span>Discount</span>
-                <span>−<?php echo number_format($discount, 2); ?> L</span>
+                <span>−€<?php echo number_format($discount, 2); ?></span>
             </div>
             <?php endif; ?>
 
@@ -409,7 +409,7 @@ if (!empty($_SESSION['checkout_selected'])) {
 
             <div class="summary-row summary-total">
                 <span>Total</span>
-                <span><?php echo number_format($total, 2); ?> L</span>
+                <span>€<?php echo number_format($total, 2); ?></span>
             </div>
 
         </div>
