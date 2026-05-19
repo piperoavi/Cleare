@@ -90,9 +90,15 @@
             <span>Online support</span>
         </div>
 
-        <button type="button" id="ai-chatbot-close" class="ai-chatbot-close">
-            ×
-        </button>
+       <div class="ai-chatbot-actions">
+    <button type="button" id="ai-chatbot-clear" class="ai-chatbot-clear">
+        Clear
+    </button>
+
+    <button type="button" id="ai-chatbot-close" class="ai-chatbot-close">
+        ×
+    </button>
+</div>
     </div>
 
     <div id="ai-chatbot-messages" class="ai-chatbot-messages">

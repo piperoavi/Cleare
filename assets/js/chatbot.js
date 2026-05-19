@@ -5,12 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const sendBtn = document.getElementById("ai-chatbot-send");
     const input = document.getElementById("ai-chatbot-input");
     const messages = document.getElementById("ai-chatbot-messages");
+    const clearBtn = document.getElementById("ai-chatbot-clear");
 
-    let chatHistory = [];
+    let chatHistory = JSON.parse(localStorage.getItem("cleare_chat_history")) || [];
 
     if (!toggleBtn || !chatBox || !closeBtn || !sendBtn || !input || !messages) {
         return;
     }
+    loadChatHistory();
 
     toggleBtn.addEventListener("click", function () {
         chatBox.classList.add("active");
@@ -21,6 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
         chatBox.classList.remove("active");
         toggleBtn.style.display = "flex";
     });
+    if (clearBtn) {
+    clearBtn.addEventListener("click", function () {
+        localStorage.removeItem("cleare_chat_history");
+        chatHistory = [];
+        messages.innerHTML = `
+            <div class="ai-chat-message ai-bot-message">
+                Hi! I am Cleare AI Assistant. Ask me about products, cart, checkout, coupons, or skincare routines.
+            </div>
+        `;
+    });
+}
 
     sendBtn.addEventListener("click", sendMessage);
 
@@ -44,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
             role: "user",
             content: userMessage
         });
+        saveChatHistory();
 
         const loadingMessage = addMessage("Thinking...", "bot");
 
@@ -81,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (chatHistory.length > 10) {
         chatHistory = chatHistory.slice(-10);
     }
+    saveChatHistory();
 })
 .catch(function (error) {
     console.error("AI chatbot fetch error:", error);
@@ -88,21 +103,41 @@ document.addEventListener("DOMContentLoaded", function () {
 });
     }
 
-    function addMessage(text, sender) {
-        const messageDiv = document.createElement("div");
+    function addMessage(text, sender, shouldSave = true) {
+    const messageDiv = document.createElement("div");
 
-        messageDiv.classList.add("ai-chat-message");
+    messageDiv.classList.add("ai-chat-message");
 
-        if (sender === "user") {
-            messageDiv.classList.add("ai-user-message");
-        } else {
-            messageDiv.classList.add("ai-bot-message");
+    if (sender === "user") {
+        messageDiv.classList.add("ai-user-message");
+    } else {
+        messageDiv.classList.add("ai-bot-message");
+    }
+
+    messageDiv.textContent = text;
+    messages.appendChild(messageDiv);
+    messages.scrollTop = messages.scrollHeight;
+
+    return messageDiv;
+}function saveChatHistory() {
+    localStorage.setItem("cleare_chat_history", JSON.stringify(chatHistory));
+}
+
+function loadChatHistory() {
+    if (chatHistory.length === 0) {
+        return;
+    }
+
+    messages.innerHTML = "";
+
+    chatHistory.forEach(function (message) {
+        if (message.role === "user") {
+            addMessage(message.content, "user", false);
         }
 
-        messageDiv.textContent = text;
-        messages.appendChild(messageDiv);
-        messages.scrollTop = messages.scrollHeight;
-
-        return messageDiv;
-    }
+        if (message.role === "assistant") {
+            addMessage(message.content, "bot", false);
+        }
+    });
+}
 });

@@ -1635,6 +1635,26 @@ footer::after {
 #ai-chatbot-input::placeholder {
     color: rgba(38, 56, 60, 0.48);
 }
+.ai-chatbot-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ai-chatbot-clear {
+    border: none;
+    border-radius: 999px;
+    padding: 7px 10px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.ai-chatbot-clear:hover {
+    background: rgba(255, 255, 255, 0.24);
+}
 
 #ai-chatbot-send {
     height: 44px;
