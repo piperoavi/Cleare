@@ -62,7 +62,7 @@ $page_title = $selected_product['name'] . " | Clearè";
             <h1 class="product-details-title"><?php echo $selected_product['name']; ?></h1>
 
             <!-- Çmimi -->
-            <div class="product-details-price"><?php echo $selected_product['price']; ?></div>
+            <div class="product-details-price">€<?php echo $selected_product['price']; ?></div>
 
             <!-- Përshkrimi -->
             <p class="product-details-desc"><?php echo $selected_product['description']; ?></p>

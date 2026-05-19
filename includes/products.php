@@ -6,7 +6,7 @@ $products = [
         "name"           => "Centella Sunscreen",
         "category"       => "skincare",
         "category_label" => "Skincare",
-        "price"          => "2,400 L",
+        "price"          => "€24.00",
         "image"          => "centella_sunscreen.jpg",
         "description"    => "Light sun protection with a gentle formula for everyday use."
     ],
@@ -15,7 +15,7 @@ $products = [
         "name"           => "CeraVe Cleanser",
         "category"       => "skincare",
         "category_label" => "Skincare",
-        "price"          => "2,200 L",
+        "price"          => "€22.00",
         "image"          => "cerave_clenser.jpg",
         "description"    => "A gentle face cleanser that removes impurities without drying out the skin."
     ],
@@ -24,7 +24,7 @@ $products = [
         "name"           => "COSRX Tonic",
         "category"       => "skincare",
         "category_label" => "Skincare",
-        "price"          => "1,900 L",
+        "price"          => "€19.00",
         "image"          => "cosrax_tonic.jpg",
         "description"    => "A refreshing toner that helps balance and hydrate the skin."
     ],
@@ -33,7 +33,7 @@ $products = [
         "name"           => "Neutrogena Water Gel",
         "category"       => "skincare",
         "category_label" => "Skincare",
-        "price"          => "2,800 L",
+        "price"          => "€28.00",
         "image"          => "neutrogena_watergel.jpg",
         "description"    => "A gel-texture moisturizer for light and fast hydration."
     ],
@@ -42,7 +42,7 @@ $products = [
         "name"           => "The Ordinary Serum",
         "category"       => "skincare",
         "category_label" => "Skincare",
-        "price"          => "3,200 L",
+        "price"          => "€32.00",
         "image"          => "ordinary_serum.jpg",
         "description"    => "A brightening serum that improves skin appearance and radiance."
     ],
@@ -51,7 +51,7 @@ $products = [
         "name"           => "Pixi Tonic",
         "category"       => "skincare",
         "category_label" => "Skincare",
-        "price"          => "2,100 L",
+        "price"          => "€21.00",
         "image"          => "pixi_tonic.jpg",
         "description"    => "A gentle exfoliating toner for smoother, brighter skin."
     ],
@@ -60,7 +60,7 @@ $products = [
         "name"           => "La Roche Cleanser",
         "category"       => "skincare",
         "category_label" => "Skincare",
-        "price"          => "2,300 L",
+        "price"          => "€23.00",
         "image"          => "rochay_clenser.jpg",
         "description"    => "A lightweight cleanser for sensitive skin and daily use."
     ],
@@ -71,7 +71,7 @@ $products = [
         "name"           => "Maybelline Fit Me Foundation",
         "category"       => "makeup",
         "category_label" => "Makeup",
-        "price"          => "2,500 L",
+        "price"          => "€25.00",
         "image"          => "maybelline_foundation.jpg",
         "description"    => "A natural-finish foundation that matches your skin tone seamlessly."
     ],
@@ -80,7 +80,7 @@ $products = [
         "name"           => "NYX Lip Gloss",
         "category"       => "makeup",
         "category_label" => "Makeup",
-        "price"          => "900 L",
+        "price"          => "€9.00",
         "image"          => "nyx_lipgloss.jpg",
         "description"    => "A non-sticky, high-shine lip gloss in a range of flattering shades."
     ],
@@ -89,7 +89,7 @@ $products = [
         "name"           => "Urban Decay Eyeshadow",
         "category"       => "makeup",
         "category_label" => "Makeup",
-        "price"          => "3,800 L",
+        "price"          => "€38.00",
         "image"          => "urbandecay_eyeshadow.jpg",
         "description"    => "A 12-shade palette with highly pigmented, blendable eyeshadows."
     ],
@@ -98,7 +98,7 @@ $products = [
         "name"           => "Charlotte Tilbury Blush",
         "category"       => "makeup",
         "category_label" => "Makeup",
-        "price"          => "2,900 L",
+        "price"          => "€29.00",
         "image"          => "ct_blush.jpg",
         "description"    => "A buildable powder blush for a healthy, sculpted glow."
     ],
@@ -109,7 +109,7 @@ $products = [
         "name"           => "Olaplex No.3 Treatment",
         "category"       => "hair",
         "category_label" => "Hair",
-        "price"          => "3,500 L",
+        "price"          => "€35.00",
         "image"          => "olaplex_no3.jpg",
         "description"    => "A bond-building treatment that strengthens and repairs damaged hair."
     ],
@@ -118,7 +118,7 @@ $products = [
         "name"           => "Moroccanoil Mask",
         "category"       => "hair",
         "category_label" => "Hair",
-        "price"          => "2,700 L",
+        "price"          => "€27.00",
         "image"          => "moroccanoil_mask.jpg",
         "description"    => "An intensely moisturizing hair mask with argan oil for silky results."
     ],
@@ -127,7 +127,7 @@ $products = [
         "name"           => "Kérastase Shampoo",
         "category"       => "hair",
         "category_label" => "Hair",
-        "price"          => "2,400 L",
+        "price"          => "€24.00",
         "image"          => "kerastase_shampoo.jpg",
         "description"    => "A nourishing shampoo that cleanses while protecting hair fiber."
     ],
@@ -136,7 +136,7 @@ $products = [
         "name"           => "Dyson Hair Serum",
         "category"       => "hair",
         "category_label" => "Hair",
-        "price"          => "1,800 L",
+        "price"          => "€18.00",
         "image"          => "dyson_serum.jpg",
         "description"    => "A lightweight serum that smooths frizz and adds shine without residue."
     ],
@@ -147,7 +147,7 @@ $products = [
         "name"           => "Sol de Janeiro Body Butter",
         "category"       => "body",
         "category_label" => "Body",
-        "price"          => "3,100 L",
+        "price"          => "€31.00",
         "image"          => "soldejaneiro_butter.jpg",
         "description"    => "A rich, whipped body butter with a warm, tropical scent."
     ],
@@ -156,7 +156,7 @@ $products = [
         "name"           => "Dove Body Wash",
         "category"       => "body",
         "category_label" => "Body",
-        "price"          => "1,200 L",
+        "price"          => "€12.00",
         "image"          => "dove_bodywash.jpg",
         "description"    => "A gentle, moisturising body wash suitable for daily use."
     ],
@@ -165,7 +165,7 @@ $products = [
         "name"           => "Frank Body Scrub",
         "category"       => "body",
         "category_label" => "Body",
-        "price"          => "2,600 L",
+        "price"          => "€26.00",
         "image"          => "frank_scrub.jpg",
         "description"    => "A coffee-based body scrub that exfoliates and softens skin."
     ],
@@ -174,7 +174,7 @@ $products = [
         "name"           => "Nécessaire Body Lotion",
         "category"       => "body",
         "category_label" => "Body",
-        "price"          => "2,900 L",
+        "price"          => "€29.00",
         "image"          => "necessaire_lotion.jpg",
         "description"    => "A lightweight, fragrance-free body lotion enriched with niacinamide."
     ],
